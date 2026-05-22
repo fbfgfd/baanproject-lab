@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บ้านโปรเจค - PROJECT & ARDUINO LAB | รวมผลงานวิศวกรรมและสมองกล</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#070d19',    /* Deep Navy Black */
+                            card: '#0f172a',    /* Dark Slate Card */
+                            logo: '#1e40af',    /* Royal Blue matching logo */
+                            primary: '#2563eb', /* Royal Accent Blue */
+                            secondary: '#3b82f6',/* Soft Blue */
+                            accent: '#10b981',  /* Emerald Safety Green */
+                            text: '#f8fafc'     /* Light Ice white */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons for Premium UI -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ซ่อน scrollbar สำหรับตกแต่ง */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* เอฟเฟกต์ Glow สีกรมท่าสว่าง */
+        .glow-royal {
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.25);
+        }
+
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-brand-dark text-brand-text min-h-screen font-sans flex flex-col justify-between selection:bg-brand-primary/30 selection:text-brand-secondary">
+
+    <!-- ================= HEADER / NAVIGATION ================= -->
+    <header class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo (BaanProject Custom SVG Logo matching the uploaded image) -->
+                <div class="flex items-center gap-3">
+                    <div onclick="handleLogoClick()"
+                        class="w-11 h-11 bg-slate-900 rounded-full flex items-center justify-center p-0.5 border border-slate-800 cursor-pointer">
+                        <!-- Hand-coded high precision SVG representation of the BaanProject logo -->
+                        <svg viewBox="0 0 200 200" class="w-full h-full text-brand-secondary" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="92" stroke="currentColor" stroke-width="4" />
+                            <circle cx="100" cy="100" r="86" stroke="currentColor" stroke-width="1.5" />
+                            <rect x="74" y="48" width="8" height="18" fill="currentColor" />
+                            <path d="M 58 87 L 66 87 L 66 120 L 134 120 L 134 87 L 142 87 L 100 48 Z"
+                                stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                            <g stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="86" cy="95" r="11" />
+                                <circle cx="114" cy="95" r="11" />
+                                <line x1="81" y1="95" x2="91" y2="95" stroke-width="3" />
+                                <line x1="109" y1="95" x2="119" y2="95" stroke-width="3" />
+                                <line x1="114" y1="90" x2="114" y2="100" stroke-width="3" />
+                            </g>
+                            <g fill="currentColor">
+                                <rect x="121" y="81" width="4" height="4" />
+                                <rect x="127" y="81" width="4" height="4" />
+                                <rect x="121" y="87" width="4" height="4" />
+                                <rect x="127" y="87" width="4" height="4" />
+                            </g>
+                            <path d="M 69 120 V 104 H 82 L 82 78 H 97 L 104 84" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="69" cy="120" r="3" fill="currentColor" />
+                            <circle cx="104" cy="84" r="3" fill="currentColor" />
+                            <path d="M 119 120 V 110 H 125 V 98" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="119" cy="120" r="3" fill="currentColor" />
+                            <circle cx="125" cy="98" r="3" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span
+                            class="text-lg font-black tracking-wider bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent block leading-tight">บ้านโปรเจค</span>
+                        <span class="block text-[9px] text-slate-400 font-bold tracking-widest uppercase">PROJECT &
+                            ARDUINO LAB</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                    <a href="#home" class="hover:text-brand-primary transition-colors">หน้าแรก</a>
+                    <a href="#projects" class="hover:text-brand-primary transition-colors">คลังผลงานแล็บ</a>
+                    <a href="#videos" class="hover:text-brand-primary transition-colors">วิดีโอสาธิต</a>
+                    <a href="#skills" class="hover:text-brand-primary transition-colors">เครื่องมือที่เชี่ยวชาญ</a>
+                    <a href="#contact" class="hover:text-brand-primary transition-colors">ติดต่อสอบถาม</a>
+                </nav>
+
+                <!-- Right Side CTA -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="#contact"
+                        class="px-4 py-2 text-xs font-semibold text-white bg-brand-primary hover:bg-brand-primary/90 rounded-lg transition-all transform hover:scale-105 shadow-md flex items-center gap-2">
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> สั่งทำโปรเจกต์ Arduino
+                    </a>
+                    <button onclick="toggleAdminModal()"
+                        class="p-2 text-slate-400 hover:text-white bg-slate-800/50 hover:bg-slate-800 rounded-lg transition-all"
+                        title="จำลองการอัปโหลดงาน">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button onclick="toggleAdminModal()"
+                        class="p-2 text-slate-400 hover:text-white bg-slate-800/50 hover:bg-slate-800 rounded-lg transition-all"
+                        title="จำลองการอัปโหลดงาน">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()"
+                        class="p-2 text-slate-400 hover:text-white rounded-lg focus:outline-none">
+                        <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-brand-dark border-t border-slate-800 px-4 py-4 space-y-3 transition-all duration-300">
+            <a href="#home" onclick="toggleMobileMenu()"
+                class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">หน้าแรก</a>
+            <a href="#projects" onclick="toggleMobileMenu()"
+                class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">คลังผลงานแล็บ</a>
+            <a href="#videos" onclick="toggleMobileMenu()"
+                class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">วิดีโอสาธิต</a>
+            <a href="#skills" onclick="toggleMobileMenu()"
+                class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">เครื่องมือที่เชี่ยวชาญ</a>
+            <a href="#contact" onclick="toggleMobileMenu()"
+                class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">ติดต่อเรา</a>
+            <div class="pt-3 border-t border-slate-800 flex flex-col gap-2">
+                <a href="#contact" onclick="toggleMobileMenu()"
+                    class="w-full text-center py-2.5 text-sm font-semibold text-white bg-brand-primary rounded-lg flex items-center justify-center gap-2">
+                    <i data-lucide="send" class="w-4 h-4"></i> สั่งทำโปรเจกต์
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ================= HERO SECTION ================= -->
+        <section id="home" class="relative overflow-hidden py-16 lg:py-24 border-b border-slate-800/50">
+            <!-- Background Decorative Lights -->
+            <div
+                class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-brand-primary/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+            <div
+                class="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+
+            <!-- Tech Blueprint Grid background -->
+            <div
+                class="absolute inset-0 opacity-[0.02] bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none">
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Text Area -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 bg-brand-primary/10 border border-brand-primary/20 text-brand-secondary rounded-full text-xs font-semibold tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-brand-primary animate-ping"></span>
+                            ระบบสำรองพอร์ตโฟลิโอ & สัญญาณกู้ภัยทางเทคนิค
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                            ยินดีต้อนรับสู่ <br>
+                            <span
+                                class="bg-gradient-to-r from-blue-400 via-indigo-300 to-blue-500 bg-clip-text text-transparent">บ้านโปรเจค
+                                (PROJECT & ARDUINO LAB)</span>
+                        </h1>
+                        <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                            ปลอดภัยจากปัญหาเพจบินหรือโดนระงับ! นี่คือแหล่งรวมสารบบโค้ด โปรเจกต์วิจัย สมองกลฝังตัว IoT,
+                            ตู้ควบคุมอุตสาหกรรม PLC และระบบอัจฉริยะที่ถูกบันทึกไว้อย่างปลอดภัยถาวร 100%
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#projects"
+                                class="w-full sm:w-auto px-8 py-3.5 text-sm font-semibold bg-gradient-to-r from-brand-primary to-blue-600 text-white rounded-xl hover:opacity-90 shadow-lg glow-royal transition-all text-center flex items-center justify-center gap-2">
+                                <i data-lucide="layers" class="w-4 h-4"></i> สำรวจผลงานห้องแล็บ
+                            </a>
+                            <a href="#contact"
+                                class="w-full sm:w-auto px-8 py-3.5 text-sm font-semibold bg-slate-900 text-slate-100 rounded-xl hover:bg-slate-800 transition-all text-center flex items-center justify-center gap-2 border border-slate-750">
+                                <i data-lucide="phone-call" class="w-4 h-4"></i> ติดต่อเจ้าหน้าที่แล็บ
+                            </a>
+                        </div>
+
+                        <!-- Social Protection Badge -->
+                        <div
+                            class="pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-500">
+                            <span
+                                class="font-semibold text-slate-400 uppercase tracking-widest text-[10px]">ระบบคุ้มครองข้อมูล:</span>
+                            <div
+                                class="flex items-center gap-2 bg-slate-900/60 px-3 py-1.5 rounded-md border border-slate-800">
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-accent"></i> Host
+                                ส่วนตัวอิสระ
+                            </div>
+                            <div
+                                class="flex items-center gap-2 bg-slate-900/60 px-3 py-1.5 rounded-md border border-slate-800">
+                                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-accent"></i>
+                                ปลอดภัยจากการปิดกั้น
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graphic Area / Giant Logo Display matching the uploaded logo -->
+                    <div class="lg:col-span-5 relative flex justify-center">
+                        <div
+                            class="relative w-full max-w-sm aspect-square bg-slate-900/40 rounded-full p-6 border border-slate-800/80 flex flex-col justify-center items-center glow-royal">
+                            <!-- Double spinning tech rings around the logo -->
+                            <div
+                                class="absolute inset-0 border border-brand-primary/10 rounded-full animate-spin [animation-duration:40s]">
+                            </div>
+                            <div
+                                class="absolute inset-2 border border-dashed border-slate-800 rounded-full animate-spin [animation-duration:20s] reverse">
+                            </div>
+
+                            <!-- Premium Exact Re-creation of User's Uploaded Logo -->
+                            <div onclick="handleLogoClick()"
+                                class="w-72 h-72 text-brand-primary hover:text-brand-secondary transition-colors duration-500 transform hover:scale-[1.02] cursor-pointer">
+                                <svg viewBox="0 0 200 200" class="w-full h-full" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Outer Double Border -->
+                                    <circle cx="100" cy="100" r="92" stroke="currentColor" stroke-width="4.5" />
+                                    <circle cx="100" cy="100" r="86" stroke="currentColor" stroke-width="1.5" />
+
+                                    <!-- Chimney -->
+                                    <rect x="74" y="48" width="8" height="18" fill="currentColor" />
+
+                                    <!-- House Shape -->
+                                    <path d="M 58 87 L 66 87 L 66 120 L 134 120 L 134 87 L 142 87 L 100 48 Z"
+                                        stroke="currentColor" stroke-width="4.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+
+                                    <!-- Arduino Infinity Symbol in Center -->
+                                    <g stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <circle cx="86" cy="95" r="11" />
+                                        <circle cx="114" cy="95" r="11" />
+                                        <!-- Left minus -->
+                                        <line x1="81" y1="95" x2="91" y2="95" stroke-width="3.2" />
+                                        <!-- Right plus -->
+                                        <line x1="109" y1="95" x2="119" y2="95" stroke-width="3.2" />
+                                        <line x1="114" y1="90" x2="114" y2="100" stroke-width="3.2" />
+                                    </g>
+
+                                    <!-- Four small square windows on the right side of the house -->
+                                    <g fill="currentColor">
+                                        <rect x="121" y="81" width="4" height="4" />
+                                        <rect x="127" y="81" width="4" height="4" />
+                                        <rect x="121" y="87" width="4" height="4" />
+                                        <rect x="127" y="87" width="4" height="4" />
+                                    </g>
+
+                                    <!-- Circuit Traces entering/leaving the house structure -->
+                                    <!-- Left Trace -->
+                                    <path d="M 69 120 V 104 H 82 L 82 78 H 97 L 104 84" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <circle cx="69" cy="120" r="3" fill="currentColor" />
+                                    <circle cx="104" cy="84" r="3" fill="currentColor" />
+
+                                    <!-- Right Trace -->
+                                    <path d="M 119 120 V 110 H 125 V 98" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <circle cx="119" cy="120" r="3" fill="currentColor" />
+                                    <circle cx="125" cy="98" r="3" fill="currentColor" />
+
+                                    <!-- Thai Text: บ้านโปรเจค -->
+                                    <text x="100" y="148" font-family="'Sarabun', 'Noto Sans Thai', sans-serif"
+                                        font-weight="900" font-size="20" fill="currentColor" text-anchor="middle"
+                                        letter-spacing="0.5">บ้านโปรเจค</text>
+
+                                    <!-- English Subtitle: PROJECT & ARDUINO LAB -->
+                                    <line x1="42" y1="162" x2="52" y2="162" stroke="currentColor" stroke-width="1.5" />
+                                    <text x="100" y="165" font-family="'Montserrat', 'Inter', sans-serif"
+                                        font-weight="800" font-size="7" fill="currentColor" text-anchor="middle"
+                                        letter-spacing="0.8">PROJECT & ARDUINO LAB</text>
+                                    <line x1="148" y1="162" x2="158" y2="162" stroke="currentColor"
+                                        stroke-width="1.5" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= QUICK STATS ================= -->
+        <section class="bg-slate-900/40 py-10 border-b border-slate-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-brand-primary">20+</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">โปรเจกต์ที่ทำเสร็จ</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-brand-secondary">98%</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">ความพึงพอใจของลูกค้า</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-brand-accent">1.5+ ปี</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">ประสบการณ์วิจัย & พัฒนา</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-white">24 ชม.</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">ระบบรันได้ต่อเนื่อง</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PORTFOLIO SHOWCASE ================= -->
+        <section id="projects" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-12">
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight">คลังเก็บสะสมผลงานแล็บ</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-sm">
+                    สามารถพิมพ์ค้นหาหัวข้อ คีย์เวิร์ดของบอร์ด หรือคลิกเลือกประเภทด้านล่าง
+                    เพื่อคัดกรองโปรเจกต์และชุดวงจรทดลอง
+                </p>
+            </div>
+
+            <!-- Filters & Search Controls -->
+            <div
+                class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+                <!-- Categories -->
+                <div class="flex flex-wrap gap-2" id="filter-container">
+                    <button onclick="filterProjects('all')"
+                        class="filter-btn px-4 py-2 text-xs font-semibold bg-brand-primary text-white rounded-xl transition-all"
+                        data-category="all">
+                        ทั้งหมด
+                    </button>
+                    <button onclick="filterProjects('iot')"
+                        class="filter-btn px-4 py-2 text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl transition-all"
+                        data-category="iot">
+                        Arduino & Smart IoT
+                    </button>
+                    <button onclick="filterProjects('software')"
+                        class="filter-btn px-4 py-2 text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl transition-all"
+                        data-category="software">
+                        Web & Control App
+                    </button>
+                    <button onclick="filterProjects('automation')"
+                        class="filter-btn px-4 py-2 text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl transition-all"
+                        data-category="automation">
+                        Industrial PLC & Machines
+                    </button>
+                </div>
+
+                <!-- Search input -->
+                <div class="relative w-full md:w-80">
+                    <input type="text" id="project-search" oninput="searchProjects()"
+                        placeholder="ค้นหาโปรเจกต์ (เช่น ESP32, PLC)..."
+                        class="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary transition-all">
+                    <i data-lucide="search" class="absolute left-3 top-3 w-4 h-4 text-slate-500"></i>
+                </div>
+            </div>
+
+            <!-- Dynamic Project Grid -->
+            <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Rendered by JS -->
+            </div>
+
+            <!-- No Projects Found Message -->
+            <div id="no-projects"
+                class="hidden text-center py-12 bg-slate-900/40 rounded-2xl border border-dashed border-slate-800">
+                <i data-lucide="folder-open" class="w-12 h-12 text-slate-600 mx-auto mb-3"></i>
+                <p class="text-sm text-slate-400">ไม่พบข้อมูลผลงานที่ท่านต้องการค้นหา</p>
+            </div>
+        </section>
+
+        <!-- ================= VIDEO DEMOS SECTION ================= -->
+        <section id="videos" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-900">
+            <div class="text-center space-y-4 mb-12">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-brand-accent rounded-full text-xs font-semibold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    คลิปสาธิตการทำงานของฮาร์ดแวร์และวงจรไฟฟ้าในแล็บ
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight">🎬 วิดีโอสาธิตการทำงานจริง</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-sm">
+                    ชมการทำงานจริงของเครื่องควบคุม บอร์ด IoT และระบบอัตโนมัติที่พัฒนาเสร็จสิ้นจากห้องปฏิบัติการ
+                </p>
+            </div>
+
+            <!-- Video Filters -->
+            <div
+                class="flex flex-wrap justify-center gap-2 mb-8 bg-slate-900/45 p-3 rounded-2xl border border-slate-800/80 max-w-fit mx-auto shadow-md">
+                <button onclick="filterVideos('all')"
+                    class="video-filter-btn px-4 py-2 text-xs font-semibold bg-brand-primary text-white rounded-xl transition-all"
+                    data-video-category="all">
+                    ทั้งหมด
+                </button>
+                <button onclick="filterVideos('iot')"
+                    class="video-filter-btn px-4 py-2 text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl transition-all"
+                    data-video-category="iot">
+                    Arduino & Smart IoT
+                </button>
+                <button onclick="filterVideos('automation')"
+                    class="video-filter-btn px-4 py-2 text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl transition-all"
+                    data-video-category="automation">
+                    Industrial PLC & Automation
+                </button>
+            </div>
+
+            <!-- Video Grid -->
+            <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Rendered by JS -->
+            </div>
+        </section>
+
+        <!-- ================= SKILLS & TOOLS SECTION ================= -->
+        <section id="skills" class="py-16 lg:py-24 bg-slate-950 border-y border-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-primary">Technical
+                            Stack</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">เทคโนโลยีประจำร้านค้าและแล็บ</h2>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            เครื่องมือ สถาปัตยกรรมชิปประมวลผล ซอฟต์แวร์ และอุปกรณ์เซนเซอร์ทั้งหมดที่ "บ้านโปรเจค"
+                            นำมาใช้บริการสร้างสรรค์งานให้กับทุกโปรเจกต์เพื่อให้ได้คุณภาพสูงสุด
+                        </p>
+                        <div class="pt-2 flex items-center gap-3">
+                            <div class="flex -space-x-2">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-slate-800 border-2 border-slate-950 flex items-center justify-center text-[10px] font-bold text-brand-secondary">
+                                    MCU</div>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-slate-700 border-2 border-slate-950 flex items-center justify-center text-[10px] font-bold text-brand-accent">
+                                    PLC</div>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-brand-primary/20 border-2 border-slate-950 flex items-center justify-center text-[10px] font-bold text-brand-primary">
+                                    LAB</div>
+                            </div>
+                            <span class="text-xs text-slate-500">มุ่งมั่นพัฒนาด้วยฮาร์ดแวร์มาตรฐานสากล</span>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <!-- Skill Box 1 -->
+                        <div
+                            class="p-4 bg-brand-card rounded-2xl border border-slate-800 hover:border-brand-primary/40 transition-all group">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-brand-primary mb-3">
+                                <i data-lucide="cpu" class="w-4 h-4"></i>
+                            </div>
+                            <h4 class="text-sm font-semibold group-hover:text-brand-primary transition-colors">Arduino /
+                                ESP32</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">ESP32, Arduino Uno, Nano, STM32, Pro Micro</p>
+                        </div>
+                        <!-- Skill Box 2 -->
+                        <div
+                            class="p-4 bg-brand-card rounded-2xl border border-slate-800 hover:border-brand-primary/40 transition-all group">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-brand-primary mb-3">
+                                <i data-lucide="radio" class="w-4 h-4"></i>
+                            </div>
+                            <h4 class="text-sm font-semibold group-hover:text-brand-primary transition-colors">Wireless
+                                IoT Sensors</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">WiFi, Bluetooth, MQTT, Modbus RTU, LoRa</p>
+                        </div>
+                        <!-- Skill Box 3 -->
+                        <div
+                            class="p-4 bg-brand-card rounded-2xl border border-slate-800 hover:border-brand-primary/40 transition-all group">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-brand-primary mb-3">
+                                <i data-lucide="code-2" class="w-4 h-4"></i>
+                            </div>
+                            <h4 class="text-sm font-semibold group-hover:text-brand-primary transition-colors">Embedded
+                                C++ & Python</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">C++, MicroPython, Python Dashboard, PyQT</p>
+                        </div>
+                        <!-- Skill Box 4 -->
+                        <div
+                            class="p-4 bg-brand-card rounded-2xl border border-slate-800 hover:border-brand-primary/40 transition-all group">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-brand-primary mb-3">
+                                <i data-lucide="layers" class="w-4 h-4"></i>
+                            </div>
+                            <h4 class="text-sm font-semibold group-hover:text-brand-primary transition-colors">
+                                ตู้คอนโทรล PLC</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">Siemens S7, Delta, Mitsubishi, HMI Screens</p>
+                        </div>
+                        <!-- Skill Box 5 -->
+                        <div
+                            class="p-4 bg-brand-card rounded-2xl border border-slate-800 hover:border-brand-primary/40 transition-all group">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-brand-primary mb-3">
+                                <i data-lucide="database" class="w-4 h-4"></i>
+                            </div>
+                            <h4 class="text-sm font-semibold group-hover:text-brand-primary transition-colors">Web App
+                                Integration</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">Node-RED, WebSocket, Grafana, API, Databases</p>
+                        </div>
+                        <!-- Skill Box 6 -->
+                        <div
+                            class="p-4 bg-brand-card rounded-2xl border border-slate-800 hover:border-brand-primary/40 transition-all group">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-brand-primary mb-3">
+                                <i data-lucide="wrench" class="w-4 h-4"></i>
+                            </div>
+                            <h4 class="text-sm font-semibold group-hover:text-brand-primary transition-colors">
+                                งานโครงสร้าง 3D</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">SolidWorks Design, 3D Printing, Acrylic Cutting
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= BACKUP SECURITY BANNER ================= -->
+        <section
+            class="py-12 bg-gradient-to-r from-slate-950 via-blue-950/20 to-slate-950 border-b border-slate-800 relative">
+            <div
+                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="p-3 bg-brand-primary/10 text-brand-secondary rounded-2xl border border-brand-primary/30">
+                        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold">เพื่อป้องกันปัญหาเพจบินอีก แนะนำให้กดบุ๊กมาร์ก (Bookmark)
+                            เว็บนี้ไว้!</h3>
+                        <p class="text-xs text-slate-400 mt-1">
+                            นี่คือเว็บไซต์หลักที่มีเสถียรภาพและระบบความมั่นคงของฐานข้อมูล
+                            แหล่งรวมช่องทางสำรองที่เข้าถึงได้ตลอดชีพ</p>
+                    </div>
+                </div>
+                <button onclick="bookmarkNotification()"
+                    class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-xs font-semibold rounded-xl transition-all border border-slate-800 flex items-center gap-2">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400"></i> วิธีการกดเซฟเว็บนี้ไว้
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT SECTION & BACKUP CHANNELS ================= -->
+        <section id="contact" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+                <!-- Contact Information & Backup Channels -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-xs font-bold text-brand-primary uppercase tracking-widest">Connect With
+                            Us</span>
+                        <h2 class="text-3xl font-black mt-2">ช่องทางติดต่อ & เครือข่ายสำรอง</h2>
+                        <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                            เราเตรียมช่องทางสำรองเพื่อความปลอดภัยไว้ครบถ้วน
+                            สามารถติดต่อสอบถามรายละเอียดสั่งทำโปรเจกต์ได้ 24 ชั่วโมง
+                        </p>
+                    </div>
+
+                    <!-- Backup Social Cards Grid -->
+                    <div class="space-y-3">
+                        <!-- Line LineOA -->
+                        <a href="https://line.me" target="_blank"
+                            class="flex items-center justify-between p-4 bg-slate-900 hover:bg-slate-850 rounded-2xl border border-slate-800/80 transition-all hover:translate-x-1 group">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                                    <i data-lucide="message-square" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-200">LINE Official Account (รวดเร็วที่สุด)
+                                    </h4>
+                                    <p class="text-[11px] text-slate-500">ไอดีไลน์: @baanproject (มีแอด @ ด้านหน้า)</p>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 text-slate-600 group-hover:text-slate-300 transition-colors"></i>
+                        </a>
+
+                        <!-- TikTok -->
+                        <a href="https://tiktok.com" target="_blank"
+                            class="flex items-center justify-between p-4 bg-slate-900 hover:bg-slate-850 rounded-2xl border border-slate-800/80 transition-all hover:translate-x-1 group">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center">
+                                    <i data-lucide="video" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-200">TikTok (อัปเดตคลิปสาธิตผลงาน)</h4>
+                                    <p class="text-[11px] text-slate-500">บัญชี: @BaanProjectTH</p>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 text-slate-600 group-hover:text-slate-300 transition-colors"></i>
+                        </a>
+
+                        <!-- GitHub -->
+                        <a href="https://github.com" target="_blank"
+                            class="flex items-center justify-between p-4 bg-slate-900 hover:bg-slate-850 rounded-2xl border border-slate-800/80 transition-all hover:translate-x-1 group">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-slate-100/10 text-slate-300 flex items-center justify-center">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-200">GitHub (พอร์ทดาวน์โหลดตัวอย่างโค้ด)
+                                    </h4>
+                                    <p class="text-[11px] text-slate-500">บัญชีหลัก: baan-project-dev</p>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right"
+                                class="w-4 h-4 text-slate-600 group-hover:text-slate-300 transition-colors"></i>
+                        </a>
+
+                        <!-- Direct Email -->
+                        <div
+                            class="flex items-center justify-between p-4 bg-slate-900 rounded-2xl border border-slate-800/80">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-secondary flex items-center justify-center">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-200">E-mail ส่วนตัว
+                                        (คุยงานระบบ/ส่งขอบเขตงาน)</h4>
+                                    <p class="text-[11px] text-slate-500">ohmwartherapperkampangpet@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Form / Message Center -->
+                <div class="lg:col-span-7 bg-brand-card rounded-3xl p-6 sm:p-8 border border-slate-800/80 glow-royal">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-extrabold flex items-center gap-2">
+                            <i data-lucide="mail-question" class="text-brand-primary w-5 h-5"></i>
+                            แจ้งรายละเอียดขอคำปรึกษา
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">กรอกข้อมูลความต้องการทำระบบหรือปรึกษา แล้ววิศวกรของ
+                            "บ้านโปรเจค" จะรีบติดต่อกลับด่วนที่สุดครับ</p>
+                    </div>
+
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-slate-400 text-xs mb-1.5 font-medium">ชื่อผู้ติดต่อ</label>
+                                <input type="text" id="contact-name" required placeholder="เช่น คุณสมศักดิ์"
+                                    class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 text-xs mb-1.5 font-medium">เบอร์โทรศัพท์ / LINE
+                                    ID</label>
+                                <input type="text" id="contact-tel" required
+                                    placeholder="พิมพ์เบอร์โทรหรือไอดีไลน์ที่สะดวก"
+                                    class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-400 text-xs mb-1.5 font-medium">หมวดหมู่ขอบเขตงาน</label>
+                            <select id="contact-type"
+                                class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 focus:outline-none focus:border-brand-primary">
+                                <option value="iot">งานสมองกลฝังตัว & Arduino / Smart IoT</option>
+                                <option value="software">เว็บแอปพลิเคชัน & หน้าแดชบอร์ดซอฟต์แวร์</option>
+                                <option value="automation">ระบบอัตโนมัติอุตสาหกรรม / ตู้ควบคุม PLC</option>
+                                <option value="consult">ปรึกษาสูตรโปรเจกต์จบ / วิจัยเทคโนโลยี</option>
+                                <option value="other">อื่นๆ</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label
+                                class="block text-slate-400 text-xs mb-1.5 font-medium">อธิบายความต้องการหรือขอบเขตงานเบื้องต้น</label>
+                            <textarea id="contact-desc" rows="4"
+                                placeholder="ระบุประเภทบอร์ด (เช่นต้องการใช้ Arduino Uno R4 / ESP32) การรับเข้าสัญญาณอินพุต และรูปแบบการเอาต์พุตแจ้งเตือน..."
+                                class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary resize-none"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full py-3.5 px-6 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold rounded-xl text-xs flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]">
+                            <i data-lucide="send" class="w-4 h-4"></i> ส่งข้อมูลให้ตรวจสอบ
+                        </button>
+                    </form>
+
+                    <!-- Success Notification Placeholder -->
+                    <div id="form-success"
+                        class="hidden mt-4 p-4 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs rounded-xl flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i>
+                        <div>
+                            <h5 class="font-bold">ได้รับข้อมูลส่งตรวจเรียบร้อยแล้ว!</h5>
+                            <p class="text-[11px] text-slate-400 mt-1">วิศวกรของ "บ้านโปรเจค" จะนำสเปกงานไปประเมิน
+                                และเร่งติดต่อกลับผ่านช่องทางระบุโดยเร็วที่สุดครับ</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <!-- Brand logo inside footer -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-center md:justify-start gap-3">
+                        <span
+                            class="text-lg font-extrabold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">BAAN
+                            PROJECT</span>
+                        <span
+                            class="text-[9px] bg-slate-900 border border-slate-800 px-2 py-0.5 text-slate-400 font-bold rounded">PROJECT
+                            & ARDUINO LAB</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">บันทึกประวัติและผลงานวิศวกรรมสมองกลฝังตัว
+                        ป้องกันและแก้ปัญหาการจำกัดสิทธิ์บนเครือข่ายโซเชียลมีเดีย</p>
+                </div>
+
+                <!-- Links inside footer -->
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-400 font-medium">
+                    <a href="#home" class="hover:text-brand-primary">หน้าแรก</a>
+                    <a href="#projects" class="hover:text-brand-primary">ผลงานแล็บ</a>
+                    <a href="#videos" class="hover:text-brand-primary">วิดีโอสาธิต</a>
+                    <a href="#skills" class="hover:text-brand-primary">ความเชี่ยวชาญ</a>
+                    <a href="#contact" class="hover:text-brand-primary">ติดต่อเรา</a>
+                </div>
+            </div>
+
+            <div
+                class="mt-8 pt-8 border-t border-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-600">
+                <p>© 2026 BaanProject - Project & Arduino Lab. สงวนลิขสิทธิ์ทั้งหมดตามกฎหมาย</p>
+                <div class="flex gap-4">
+                    <span class="hover:text-slate-400 cursor-pointer">นโยบายความเป็นส่วนตัว</span>
+                    <span>|</span>
+                    <span class="hover:text-slate-400 cursor-pointer">เงื่อนไขการให้บริการ</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= PORTFOLIO DETAILS MODAL ================= -->
+    <div id="project-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0">
+        <div
+            class="relative bg-brand-card border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto glow-royal p-6 sm:p-8 space-y-6 scrollbar-thin">
+            <!-- Close button -->
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 p-2 text-slate-400 hover:text-white bg-slate-900 rounded-full border border-slate-800 transition-colors">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+
+            <!-- Modal Content Area -->
+            <div id="modal-content" class="space-y-6">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SIMULATED ADMIN MODAL (ADD WORK) ================= -->
+    <div id="admin-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0">
+        <div
+            class="relative bg-brand-card border border-slate-800 rounded-3xl max-w-lg w-full glow-royal p-6 sm:p-8 space-y-5">
+            <!-- Close button -->
+            <button onclick="toggleAdminModal()"
+                class="absolute top-4 right-4 p-2 text-slate-400 hover:text-white bg-slate-900 rounded-full border border-slate-800 transition-colors">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+
+            <div>
+                <h3 class="text-lg font-extrabold text-slate-100 flex items-center gap-2">
+                    <i data-lucide="plus-circle" class="text-brand-primary w-5 h-5"></i> [ระบบจำลอง]
+                    เพิ่มผลงานวิศวกรรมใหม่
+                </h3>
+                <p class="text-xs text-slate-400 mt-1">
+                    เมื่อท่านสร้างโปรเจกต์ใหม่เสร็จ
+                    สามารถมากรอกจำลองข้อมูลตรงนี้เพื่อดูตัวอย่างการตอบสนองแบบเรียลไทม์บนหน้าเว็บ
+                </p>
+            </div>
+
+            <form id="admin-form" onsubmit="handleMockAddProject(event)" class="space-y-4">
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1 font-medium">ชื่อโครงการ/โปรเจกต์ (ภาษาไทย)</label>
+                    <input type="text" id="adm-title" required
+                        placeholder="เช่น ชุดเครื่องล้างชิ้นส่วนด้วยคลื่นอัลตราโซนิกอัจฉริยะ"
+                        class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-slate-400 text-xs mb-1 font-medium">หมวดหมู่หลัก</label>
+                        <select id="adm-category"
+                            class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 focus:outline-none focus:border-brand-primary">
+                            <option value="iot">Arduino & Smart IoT</option>
+                            <option value="software">Web & Control App</option>
+                            <option value="automation">Industrial PLC & Machines</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 text-xs mb-1 font-medium">สถานะพัฒนา</label>
+                        <select id="adm-status"
+                            class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 focus:outline-none focus:border-brand-primary">
+                            <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+                            <option value="กำลังพัฒนา">กำลังพัฒนา</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1 font-medium">อธิบายย่อ (แสดงบนหน้าการ์ด)</label>
+                    <input type="text" id="adm-desc" required placeholder="อธิบายจุดเด่นสั้นๆ 1 ประโยค"
+                        class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary">
+                </div>
+
+                <div>
+                    <label
+                        class="block text-slate-400 text-xs mb-1 font-medium">รายละเอียดเชิกลึกและวิธีการเชื่อมโยงอุปกรณ์</label>
+                    <textarea id="adm-longdesc" rows="3"
+                        placeholder="ระบุการเชื่อมต่อบอร์ด ไมโครคอนโทรลเลอร์ที่ใช้ การประมวลผลและการบันทึกสถิติข้อมูล..."
+                        class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary resize-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1 font-medium">แท็ก/เครื่องมือที่ใช้
+                        (คั่นด้วยเครื่องหมายจุลภาค ,)</label>
+                    <input type="text" id="adm-tags" placeholder="เช่น Arduino Uno, ESP32, Relay, MQTT"
+                        class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary">
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 text-xs mb-1 font-medium">ชื่อไฟล์วิดีโอสาธิต (ถ้ามี เช่น
+                        COIN.mp4)</label>
+                    <input type="text" id="adm-video" placeholder="ระบุชื่อไฟล์วิดีโอ (เช่น COIN.mp4 หรือเว้นว่างไว้)"
+                        class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary">
+                </div>
+
+                <button type="submit"
+                    class="w-full py-2.5 px-4 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold rounded-xl text-xs flex items-center justify-center gap-2 transition-all">
+                    <i data-lucide="upload-cloud" class="w-4 h-4"></i> เพิ่มข้อมูลในแผงผลงานชั่วคราว
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-6 left-6 z-50 transform translate-y-20 opacity-0 bg-slate-900/95 text-brand-secondary border border-slate-800 px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 pointer-events-none text-xs font-semibold flex items-center gap-2">
+        <i data-lucide="info" class="w-4 h-4 text-brand-primary"></i>
+        <span id="toast-message">ข้อความแจ้งเตือน</span>
+    </div>
+
+    <!-- ================= SIMULATOR MODAL (EASTER EGG) ================= -->
+    <div id="simulator-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0">
+        <div
+            class="relative bg-brand-card/95 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl glow-royal">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="p-2.5 bg-brand-primary/10 text-brand-secondary rounded-xl border border-brand-primary/20">
+                        <i data-lucide="terminal" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-100">BaanProject Interactive Lab Simulator</h3>
+                        <span class="text-[10px] text-brand-accent font-medium">ระบบจำลองการทำงานบอร์ด IoT & PLC
+                            แบบเรียลไทม์</span>
+                    </div>
+                </div>
+                <button onclick="closeSimulatorModal()"
+                    class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Simulator Content Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <!-- Controls Area (7 cols) -->
+                <div class="md:col-span-7 space-y-4">
+                    <!-- Power & Main Control -->
+                    <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-850 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-slate-700 animate-pulse"
+                                    id="sim-power-led"></span>
+                                สถานะตัวเครื่อง: <span id="sim-power-text"
+                                    class="text-slate-500 font-bold">OFFLINE</span>
+                            </span>
+                            <button id="sim-power-btn" onclick="toggleSimPower()"
+                                class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-lg border border-slate-700 transition-all">
+                                POWER ON
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Outputs & Sensors -->
+                    <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-850 space-y-4 opacity-50 transition-opacity"
+                        id="sim-panel-controls">
+                        <!-- Relays / Pumps -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div
+                                class="bg-slate-900/80 p-3 rounded-xl border border-slate-800/80 flex flex-col justify-between h-20">
+                                <span class="text-[10px] text-slate-500 font-bold uppercase">รีเลย์ 1 (ปั๊มน้ำ)</span>
+                                <div class="flex items-center justify-between">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-slate-700" id="sim-relay1-led"></span>
+                                    <input type="checkbox" id="sim-relay1-switch" onchange="toggleSimRelay(1)"
+                                        class="w-8 h-4 bg-slate-800 checked:bg-brand-primary rounded-full appearance-none relative before:content-[''] before:w-4 before:h-4 before:bg-slate-450 before:rounded-full before:absolute before:transition-all checked:before:translate-x-4 checked:before:bg-brand-secondary cursor-pointer disabled:pointer-events-none"
+                                        disabled>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-slate-900/80 p-3 rounded-xl border border-slate-800/80 flex flex-col justify-between h-20">
+                                <span class="text-[10px] text-slate-500 font-bold uppercase">รีเลย์ 2
+                                    (โซลินอยด์วาล์ว)</span>
+                                <div class="flex items-center justify-between">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-slate-700" id="sim-relay2-led"></span>
+                                    <input type="checkbox" id="sim-relay2-switch" onchange="toggleSimRelay(2)"
+                                        class="w-8 h-4 bg-slate-800 checked:bg-brand-primary rounded-full appearance-none relative before:content-[''] before:w-4 before:h-4 before:bg-slate-450 before:rounded-full before:absolute before:transition-all checked:before:translate-x-4 checked:before:bg-brand-secondary cursor-pointer disabled:pointer-events-none"
+                                        disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Water Level Sensor Simulation -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-[11px]">
+                                <span class="text-slate-400 font-medium">จำลองเซนเซอร์ระดับน้ำ (Water Level)</span>
+                                <span class="font-bold text-brand-secondary" id="sim-water-val">0%</span>
+                            </div>
+                            <input type="range" id="sim-water-range" min="0" max="100" value="0"
+                                oninput="updateSimWaterLevel(this.value)"
+                                class="w-full h-1 bg-slate-850 rounded-lg appearance-none cursor-pointer accent-brand-primary disabled:pointer-events-none"
+                                disabled>
+                            <!-- Visual Tank Level Indicator -->
+                            <div
+                                class="w-full h-4 bg-slate-900 rounded-full border border-slate-800 overflow-hidden relative">
+                                <div id="sim-water-bar"
+                                    class="h-full bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-300 w-0">
+                                </div>
+                                <span
+                                    class="absolute inset-0 flex items-center justify-center text-[9px] text-slate-500 font-bold font-sans">ถังบรรจุน้ำจำลอง
+                                    (Water Tank)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Monitoring & Logs (5 cols) -->
+                <div class="md:col-span-5 space-y-4 flex flex-col justify-between">
+                    <!-- Oscilloscope Screen -->
+                    <div
+                        class="bg-slate-950 p-3 rounded-2xl border border-slate-850 h-28 relative flex items-center justify-center overflow-hidden">
+                        <canvas id="sim-canvas" width="220" height="96" class="w-full h-full opacity-60"></canvas>
+                        <div
+                            class="absolute top-2 left-2 flex items-center gap-1 text-[8px] font-mono text-brand-accent">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping"></span> Live Signal
+                        </div>
+                    </div>
+
+                    <!-- Console Logs Screen -->
+                    <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-850 font-mono text-[9px] text-emerald-400 space-y-1 h-36 overflow-y-auto flex-grow no-scrollbar flex flex-col justify-end"
+                        id="sim-logs">
+                        <div>[SYSTEM] ออฟไลน์อยู่...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="border-t border-slate-800 pt-4 flex items-center justify-between text-[10px] text-slate-500">
+                <span>* แดชบอร์ดนี้จำลองพอร์ต I/O ของบอร์ด ESP32 & PLC FX5U ในห้องแล็บ</span>
+                <span class="text-brand-secondary font-semibold">BaanProject Lab 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= BOOKMARK TIP MODAL ================= -->
+    <div id="bookmark-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0">
+        <div
+            class="relative bg-brand-card border border-slate-800 rounded-3xl max-w-md w-full p-6 text-center space-y-4">
+            <div class="w-12 h-12 rounded-full bg-amber-400/10 text-amber-400 flex items-center justify-center mx-auto">
+                <i data-lucide="star" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-slate-100">วิธีการบุ๊กมาร์กเก็บเว็บนี้ไว้</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                บนเครื่องคอมพิวเตอร์: กดปุ่ม <kbd
+                    class="px-1.5 py-0.5 bg-slate-950 border border-slate-800 rounded text-[10px] font-mono text-slate-300">Ctrl</kbd>
+                + <kbd
+                    class="px-1.5 py-0.5 bg-slate-950 border border-slate-800 rounded text-[10px] font-mono text-slate-300">D</kbd>
+                (หรือ <kbd
+                    class="px-1.5 py-0.5 bg-slate-950 border border-slate-800 rounded text-[10px] font-mono text-slate-300">Cmd</kbd>
+                + <kbd
+                    class="px-1.5 py-0.5 bg-slate-950 border border-slate-800 rounded text-[10px] font-mono text-slate-300">D</kbd>
+                บน Mac) เพื่อเซฟเข้า Bookmark Bar <br><br>
+                บนโทรศัพท์มือถือ: กดสัญลักษณ์จุดสามจุด <i data-lucide="more-vertical" class="inline w-3.5 h-3.5"></i>
+                หรือปุ่มแชร์ <i data-lucide="share-2" class="inline w-3.5 h-3.5"></i> แล้วเลือก **"เพิ่มไปยังหน้าจอหลัก
+                (Add to Home Screen)"** หรือ **"สร้างทางลัดบนหน้าจอ"** เพื่อเข้าใช้เหมือนแอปตัวหนึ่งได้ทันทีครับ
+            </p>
+            <button onclick="toggleBookmarkModal()"
+                class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-xl text-slate-200 transition-all">
+                เข้าใจแล้ว
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= CHAT COMPONENT (FLOATING AI CONCIERGE) ================= -->
+    <!-- AI Toggle Bubble Button -->
+    <button onclick="toggleChatWindow()" id="chat-bubble"
+        class="fixed bottom-6 right-6 z-40 p-4 bg-gradient-to-tr from-brand-primary to-brand-logo text-white rounded-full shadow-2xl glow-royal flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+        <i data-lucide="bot-message-square" id="chat-icon-bubble" class="w-6 h-6"></i>
+        <span class="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border border-slate-950"></span>
+        </span>
+    </button>
+
+    <!-- AI Chat Window -->
+    <div id="chat-window"
+        class="fixed bottom-24 right-6 z-40 w-[90vw] sm:w-[400px] h-[500px] bg-brand-card/95 backdrop-blur-md border border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between hidden transform translate-y-4 opacity-0 transition-all duration-300">
+        <!-- Chat Header -->
+        <div class="px-4 py-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- Logo inside Chat Header -->
+                <div
+                    class="w-9 h-9 bg-brand-dark rounded-full flex items-center justify-center p-0.5 border border-slate-850">
+                    <svg viewBox="0 0 200 200" class="w-full h-full text-brand-primary" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="92" stroke="currentColor" stroke-width="5" />
+                        <path d="M 58 87 L 66 87 L 66 120 L 134 120 L 134 87 L 142 87 L 100 48 Z" stroke="currentColor"
+                            stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                        <g stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="86" cy="95" r="11" />
+                            <circle cx="114" cy="95" r="11" />
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold">บ้านโปรเจค AI Assistant</h4>
+                    <span class="block text-[9px] text-brand-accent font-medium">พร้อมช่วยเหลือวิเคราะห์งานสมองกล</span>
+                </div>
+            </div>
+            <button onclick="toggleChatWindow()"
+                class="p-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg">
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+        <!-- Message Logs -->
+        <div id="chat-logs" class="flex-grow p-4 overflow-y-auto space-y-4 text-xs">
+            <!-- AI Welcome Message -->
+            <div class="flex items-start gap-2 max-w-[85%]">
+                <div
+                    class="w-6 h-6 rounded bg-slate-800 text-brand-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <i data-lucide="bot" class="w-3.5 h-3.5"></i>
+                </div>
+                <div
+                    class="p-3 bg-slate-900/80 rounded-2xl rounded-tl-none border border-slate-850 text-slate-300 leading-relaxed">
+                    สวัสดีครับ! ยินดีต้อนรับสู่ **บ้านโปรเจค (PROJECT & ARDUINO LAB)** 🤖🛠️<br><br>
+                    ผมคือผู้ช่วยอัจฉริยะที่คอยตอบคำถาม วิเคราะห์โค้ด ช่วยคิดหัวข้อโครงงานวิจัย
+                    หรือแนะนำชิปควบคุมไอโอทีที่เหมาะกับงานของคุณ ลองพิมพ์สอบถามหรือกดปุ่มตัวเลือกได้เลยครับ!
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Prompts Buttons -->
+        <div
+            class="px-4 py-2 border-t border-slate-800/50 bg-slate-900/30 overflow-x-auto whitespace-nowrap flex gap-2 no-scrollbar">
+            <button onclick="sendQuickPrompt('ช่วยแนะนำแนวคิดทำโปรเจกต์ Arduino เจ๋งๆ หน่อย')"
+                class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-full text-[10px] font-medium transition-colors">
+                💡 ไอเดียโปรเจกต์ Arduino
+            </button>
+            <button onclick="sendQuickPrompt('อยากทำระบบ Smart Farm ด้วยบอร์ด ESP32 ต้องเตรียมชิ้นส่วนอะไรบ้าง')"
+                class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-full text-[10px] font-medium transition-colors">
+                🌱 ทำระบบ Smart Farm
+            </button>
+            <button onclick="sendQuickPrompt('โปรเจกต์ตู้ควบคุม PLC ของที่นี่ใช้บอร์ดตระกูลไหน')"
+                class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-full text-[10px] font-medium transition-colors">
+                🏭 ตู้ควบคุม PLC
+            </button>
+        </div>
+
+        <!-- Chat Input Area -->
+        <div class="p-3 bg-slate-900 border-t border-slate-800">
+            <form id="chat-form" onsubmit="handleSendChat(event)" class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="พิมพ์คุยกับวิศวกร AI ของเรา..."
+                    class="flex-grow px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-brand-text focus:outline-none focus:border-brand-primary"
+                    autocomplete="off">
+                <button type="submit"
+                    class="p-2 bg-brand-primary text-white rounded-xl hover:scale-105 active:scale-95 transition-transform">
+                    <i data-lucide="send-horizontal" class="w-4 h-4"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // --- 1. PORTFOLIO DATA (จากผลงานจริงทั้งหมด) ---
+        // Path ฐานสำหรับรูปภาพโปรเจกต์จริงจาก E: drive
+        const IMAGE_BASE_PATH = 'file:///E:/Work/บ้านโปรเจค/📸 รูปภาพ/';
+        const VIDEO_BASE_PATH = 'file:///E:/Work/บ้านโปรเจค/🎬 วิดีโอ/';
+
+        const initialProjects = [
+            {
+                id: "proj_1",
+                title: "ระบบจำลอง Fuel Panel เครื่องบิน พร้อมจอ HMI ควบคุม (Flight Fuel System Simulator)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "ตู้จำลองระบบเชื้อเพลิงเครื่องบินพร้อมหน้าจอ HMI สัมผัสควบคุมวาล์วและปั๊มแรงดัน",
+                longDesc: "โครงงานจำลองระบบจ่ายเชื้อเพลิง (Fuel System) ของอากาศยานแบบเสมือนจริง ออกแบบตามหลัก Left Wing / Right Wing / Center Tank พร้อมวาล์ว Crossfeed และ Intercell Transfer ควบคุมผ่านหน้าจอ HMI Touchscreen ร่วมกับ PLC Board และ Relay Module สำหรับสั่ง Solenoid Valve แต่ละจุด มีระบบแสดงผลปริมาณเชื้อเพลิงคงเหลือแบบเรียลไทม์",
+                tags: ["PLC Board", "HMI Touchscreen", "Relay Module", "Power Supply", "Solenoid Valve"],
+                difficulty: "ระดับสูงพิเศษ",
+                duration: "4-6 สัปดาห์",
+                imageUrl: "Thank You_1.png",
+                videoUrl: "Thank You_1.mp4"
+            },
+            {
+                id: "proj_2",
+                title: "ตู้คอนโทรลระบบ PLC อุตสาหกรรม พร้อม Relay 8 ช่อง (Industrial PLC Control Panel)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "ตู้ควบคุมอุตสาหกรรมครบชุด รวม PLC Board, Relay Module, Power Supply และ Terminal Block",
+                longDesc: "ออกแบบและประกอบตู้คอนโทรลควบคุมระบบอุตสาหกรรมอย่างมืออาชีพ ประกอบด้วย PLC Board เป็นหน่วยประมวลผลหลัก, Relay Module 8 ช่องสำหรับสั่งงานอุปกรณ์ภายนอก, Switching Power Supply แปลงแรงดัน, Buck Converter ปรับแรงดัน, MY2 Relay สำหรับ Interlock Safety และ Terminal Block สำหรับเชื่อมต่อระบบสายไฟภายนอก พร้อมเดินสายอย่างเป็นระเบียบตามมาตรฐานงานช่าง",
+                tags: ["PLC Board", "8-CH Relay", "Switching PSU", "Buck Converter", "Terminal Block"],
+                difficulty: "ระดับสูง",
+                duration: "2-3 สัปดาห์",
+                imageUrl: "S__25690130_0.jpg"
+            },
+            {
+                id: "proj_3",
+                title: "ระบบไซเรนแจ้งเตือนภัยอัจฉริยะ ESP32 IoT (Smart Siren Alert System)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "บอร์ด ESP32 ควบคุม Relay สั่งงานไซเรนเตือนภัยผ่าน WiFi พร้อมแหล่งจ่ายไฟ Hi-Link",
+                longDesc: "ระบบแจ้งเตือนภัยอัจฉริยะที่ใช้ ESP32 เป็นหน่วยประมวลผลหลัก ควบคุมผ่าน WiFi/Bluetooth สั่งเปิด-ปิด Relay Module เพื่อขับ Siren Speaker แจ้งเตือนภัยในพื้นที่ ใช้ Hi-Link HLK-PM01 เป็นแหล่งจ่ายไฟ AC-DC แปลง 220V เป็น 5V โดยตรง ไม่ต้องใช้อแดปเตอร์ภายนอก เหมาะสำหรับติดตั้งถาวรในพื้นที่ใช้งานจริง",
+                tags: ["ESP32", "4-CH Relay", "Hi-Link PSU", "Siren Speaker", "WiFi Control"],
+                difficulty: "ระดับปานกลาง",
+                duration: "1-2 สัปดาห์",
+                imageUrl: "S__19308609_0.jpg",
+                videoUrl: "e5f37598-8dbe-42d3-a2e6-d132badad110.mp4"
+            },
+            {
+                id: "proj_4",
+                title: "หมวกกันน็อคอัจฉริยะตรวจจับสิ่งกีดขวาง (Ultrasonic Smart Helmet)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "หมวกกันน็อคติดตั้ง Ultrasonic Sensor ตรวจระยะรอบทิศทาง พร้อม LED และ Buzzer เตือน",
+                longDesc: "โครงงานวิจัยหมวกกันน็อคอัจฉริยะสำหรับผู้พิการทางสายตาหรือใช้ในพื้นที่มืด โดยติดตั้งเซนเซอร์ Ultrasonic รอบหมวกหลายจุดเพื่อตรวจจับสิ่งกีดขวางรอบศีรษะ แจ้งเตือนด้วย LED สีแดงและ Buzzer เสียงสัญญาณ ประมวลผลด้วยบอร์ด Arduino สามารถปรับระยะตรวจจับและระดับเสียงเตือนได้",
+                tags: ["Arduino", "Ultrasonic Sensor", "LED Indicator", "Buzzer", "Wearable Tech"],
+                difficulty: "ระดับปานกลาง",
+                duration: "2 สัปดาห์",
+                imageUrl: "S__25255940_0.jpg"
+            },
+            {
+                id: "proj_5",
+                title: "เครื่องชั่งน้ำหนักดิจิตอล Load Cell พร้อมจอ 7-Segment (Digital Weight Scale)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "เครื่องชั่งน้ำหนักแม่นยำสูงใช้ HX711 Load Cell Amplifier แสดงผล 7-Segment LED",
+                longDesc: "เครื่องชั่งน้ำหนักดิจิตอลความแม่นยำสูง ใช้ Load Cell Sensor เป็นตัวตรวจจับแรงกด ประมวลผลผ่านวงจรขยายสัญญาณ HX711 24-bit ADC ร่วมกับ Arduino แสดงค่าน้ำหนักบนจอ 7-Segment Display 4 หลัก พร้อม Calibration Factor ปรับค่าได้ ใส่กล่องเรียบร้อยพร้อมแท่นรองรับน้ำหนัก",
+                tags: ["Arduino", "HX711 Load Cell", "7-Segment Display", "TM1637 Driver"],
+                difficulty: "ระดับเริ่มต้น-ปานกลาง",
+                duration: "1 สัปดาห์",
+                imageUrl: "S__1728522_0.jpg"
+            },
+            {
+                id: "proj_6",
+                title: "เครื่องนับจำนวนคนส่งข้อมูลแจ้งเตือนไร้สายไม่ใช้อินเทอร์เน็ต (Wireless People Counter System)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "เครื่องตรวจวัดและนับจำนวนคนเข้า-ออกห้องแบบไร้สาย ส่งข้อมูลแจ้งเตือนด้วยคลื่นวิทยุโดยไม่ต้องใช้อินเทอร์เน็ต",
+                longDesc: "โครงงานเครื่องตรวจวัดและนับจำนวนคนเข้า-ออกห้องแบบไร้สาย ใช้เซนเซอร์ตรวจจับร่วมกับโมดูลรับส่งคลื่นวิทยุ (RF Module) เพื่อส่งข้อมูลการนับแจ้งเตือนไปยังเครื่องรับระยะไกลแบบเรียลไทม์ ปลอดภัยและทำงานได้เสถียรโดยไม่จำเป็นต้องพึ่งพาเครือข่ายอินเทอร์เน็ตหรือ WiFi",
+                tags: ["Arduino", "RF Transmitter/Receiver", "Sensor", "Wireless Alert"],
+                difficulty: "ระดับปานกลาง",
+                duration: "1-2 สัปดาห์",
+                imageUrl: "White Minimalist Thank You Facebook Post_1.png",
+                videoUrl: "White Minimalist Thank You Facebook Post_1.mp4"
+            },
+            {
+                id: "proj_7",
+                title: "ตู้คอนโทรลไม้ Arduino พร้อมปุ่มกดควบคุม (Wooden Arduino Control Box)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "ตู้ควบคุมระบบทำจากไม้ ติดตั้งปุ่มกด สวิตช์ ไฟสถานะ และระบบ Arduino ภายใน",
+                longDesc: "ออกแบบและสร้างตู้คอนโทรลจากไม้อัดเกรดดี ภายนอกติดตั้งปุ่มกด Emergency Stop (เขียว/แดง), สวิตช์หมุนเลือกโหมด, ไฟ Pilot Lamp สถานะ ภายในบรรจุบอร์ด Arduino, Relay Module และวงจรจ่ายไฟ พร้อมเขียนโปรแกรม Arduino C++ ควบคุมการทำงาน เหมาะสำหรับงานทดลองและสาธิตระบบควบคุมในห้องปฏิบัติการ",
+                tags: ["Arduino", "Push Button", "Emergency Stop", "Pilot Lamp", "Relay"],
+                difficulty: "ระดับปานกลาง",
+                duration: "1-2 สัปดาห์",
+                imageUrl: "Finally.png"
+            },
+            {
+                id: "proj_8",
+                title: "งานติดตั้งระบบไฟฟ้าตู้คอนโทรลห้องเซิร์ฟเวอร์ (Server Room Electrical Installation)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "งานติดตั้งตู้ไฟฟ้า ระบบควบคุม CCTV และ Fire Detection ในห้องเซิร์ฟเวอร์จริง",
+                longDesc: "รับงานติดตั้งระบบไฟฟ้าภายในห้องเซิร์ฟเวอร์ ประกอบด้วยตู้ MDB (Main Distribution Board), ตู้ DB ย่อย, เดินท่อร้อยสายไฟ, ติดตั้งกล้อง CCTV, ระบบตรวจจับควันไฟ (Smoke Detector) และเครื่องปรับอากาศระบบ Inverter เพื่อรักษาอุณหภูมิห้องเซิร์ฟเวอร์ให้คงที่ตลอด 24 ชั่วโมง",
+                tags: ["Electrical Panel", "MDB Cabinet", "CCTV", "Smoke Detector", "Inverter AC"],
+                difficulty: "ระดับสูง",
+                duration: "2-4 สัปดาห์",
+                imageUrl: "Thank You.png",
+                videoUrl: "Thank You.mp4"
+            },
+            {
+                id: "proj_9",
+                title: "บอร์ด PCB Arduino สั่งผลิตพิเศษ พร้อมจัดส่ง (Custom Arduino PCB Board)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "รับออกแบบและผลิต PCB Board สำหรับ Arduino พร้อมจัดส่งทั่วประเทศ",
+                longDesc: "บริการออกแบบวงจร PCB (Printed Circuit Board) ตามสเปคลูกค้า ผลิตด้วยเครื่อง CNC/Etching เกรดอุตสาหกรรม รองรับ Arduino Compatible Pinout, ขั้วต่อ Terminal Block, ช่อง Analog Input, Power Supply Section และ Relay Driver ส่งงานเสร็จพร้อมตรวจสอบคุณภาพก่อนแพ็คจัดส่งด้วยบริการ Kerry/EMS ทั่วประเทศ",
+                tags: ["Custom PCB", "Arduino Compatible", "Terminal Block", "Shipping Service"],
+                difficulty: "ระดับปานกลาง",
+                duration: "1-2 สัปดาห์",
+                imageUrl: "PCB.png"
+            },
+            {
+                id: "proj_10",
+                title: "ตู้คอนโทรลปลั๊กไฟพร้อมระบบเปิด-ปิดอัจฉริยะ (Smart Electrical Control Box)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "ตู้ควบคุมปลั๊กไฟมาตรฐาน Philips พร้อมปุ่มกด ON/OFF และไฟสถานะสั่งทำพิเศษ",
+                longDesc: "ตู้คอนโทรลไฟฟ้าขนาดกะทัดรัดติดตั้งปลั๊กไฟมาตรฐาน Philips, ปุ่มกด Push Button สีส้ม/ชมพู สำหรับ Start/Stop, ไฟ Pilot Lamp สถานะ และ Circuit Breaker ป้องกันกระแสเกิน ออกแบบให้ใช้งานง่ายและปลอดภัย เหมาะสำหรับควบคุมอุปกรณ์ไฟฟ้าในห้องปฏิบัติการ",
+                tags: ["Philips Socket", "Push Button", "Pilot Lamp", "Circuit Breaker"],
+                difficulty: "ระดับเริ่มต้น",
+                duration: "3-5 วัน",
+                imageUrl: "S__19587093_0.jpg"
+            },
+            {
+                id: "proj_11",
+                title: "บอร์ด ESP32 + Relay Module สำเร็จรูป พร้อมส่ง (ESP32 Relay Control Board)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "ชุดบอร์ด ESP32 ต่อ Relay 4 ช่องพร้อม Hi-Link PSU บนแผ่น PCB ประกอบสำเร็จรูป",
+                longDesc: "บอร์ดสำเร็จรูปประกอบด้วย ESP32 DevKit เป็นตัวควบคุมหลัก, Relay Module 4 ช่อง สำหรับสวิตช์โหลด AC/DC และ Hi-Link HLK-PM01 แปลงไฟ AC 220V เป็น DC 5V ติดตั้งบนแผ่น PCB เดียวพร้อมเชื่อมสายเรียบร้อย เสียบปลั๊กใช้งานได้ทันที เหมาะสำหรับระบบ Smart Home, IoT Switch หรืองานควบคุมอุปกรณ์ไฟฟ้าทางไกล",
+                tags: ["ESP32 DevKit", "4-CH Relay", "Hi-Link AC-DC", "PCB Assembly", "Smart Home"],
+                difficulty: "ระดับเริ่มต้น-ปานกลาง",
+                duration: "3-5 วัน",
+                imageUrl: "S__19308612_0.jpg",
+                videoUrl: "10448c81-aa18-4ad0-8c1b-d8f458438b2f.mp4"
+            },
+            {
+                id: "proj_12",
+                title: "ตู้คอนโทรล PLC Mitsubishi พร้อม Delta PSU สำหรับงานติดตั้งจริง (Mitsubishi PLC Panel)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "ตู้ควบคุม PLC Mitsubishi FX5U พร้อม Circuit Breaker, Delta PSU และ Terminal Block เดินสายมาตรฐาน",
+                longDesc: "ตู้คอนโทรลระดับมืออาชีพสำหรับงานติดตั้งระบบควบคุมอัตโนมัติในไซต์งานจริง ภายในประกอบด้วย PLC Mitsubishi FX5U-32M เป็นหน่วยประมวลผลหลัก, Delta LYTe Switching PSU แปลงไฟ, Circuit Breaker DAKO KNB1-63 สำหรับป้องกันระบบ และ Terminal Block สำหรับเชื่อมต่อสายสัญญาณ I/O ทั้งหมด เดินสายตามมาตรฐานอุตสาหกรรมพร้อมติดป้ายกำกับ CB1, F1, PLC1, TB1 ครบถ้วน",
+                tags: ["Mitsubishi FX5U", "Delta LYTe PSU", "Circuit Breaker", "Terminal Block", "DIN Rail"],
+                difficulty: "ระดับสูง",
+                duration: "2-3 สัปดาห์",
+                imageUrl: "f79383bc-3713-4892-957c-6d760543a87e.jpg"
+            },
+            {
+                id: "proj_13",
+                title: "ระบบถังเชื้อเพลิง + ปั๊ม + วาล์ว Fuel Panel ด้านหลัง (Fuel System Hydraulic Assembly)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "ส่วนถังเชื้อเพลิงอลูมิเนียม 5 ถัง พร้อมปั๊มแรงดัน Solenoid Valve และท่อส่งน้ำมัน",
+                longDesc: "ระบบ Hydraulic ด้านหลังของ Flight Fuel Panel Simulator ประกอบด้วยถังอลูมิเนียมจำลอง 5 ถัง (Left Wing Outer/Inner, Center Tank, Right Wing Outer/Inner) ติดตั้งปั๊มแรงดัน DC สำหรับจำลองการจ่ายเชื้อเพลิง, Solenoid Valve ขนาด 1/4 นิ้วสำหรับ Crossfeed และ Intercell Transfer เชื่อมต่อท่อ PE สีน้ำเงินทั้งระบบ ควบคุมผ่าน PLC และ Relay Module จากตู้คอนโทรลด้านหลัง",
+                tags: ["DC Pump", "Solenoid Valve", "PE Tube", "Aluminum Tank", "Hydraulic System"],
+                difficulty: "ระดับสูงพิเศษ",
+                duration: "3-4 สัปดาห์",
+                imageUrl: "68977f6d-89f9-4ed4-8612-0538fb1e059a.jpg"
+            },
+            {
+                id: "proj_14",
+                title: "แผงผัง Fuel System เครื่องบินขนาดจริง + จอ HMI Samkoon (Full-Scale Fuel Panel Diagram)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "แผงผังระบบเชื้อเพลิงเครื่องบินขนาดเต็ม พร้อม Solenoid Valve จริง + จอ HMI Samkoon 7 นิ้ว",
+                longDesc: "แผงจำลองระบบเชื้อเพลิงเครื่องบินขนาดเต็มติดผนัง แสดงผัง Engine 1/2, APU, Crossfeed Valve, Fuel Pumps, Intercell Transfer Valves และ Tank Layout (Left Wing, Center, Right Wing) พร้อมน้ำหนักเชื้อเพลิงจำลอง Total 18,728 kg ติดตั้ง Solenoid Valve จริงที่แต่ละจุดเปิด-ปิดได้ ควบคุมผ่านจอ HMI Samkoon 7 นิ้ว Touchscreen และปุ่ม Emergency Stop",
+                tags: ["HMI Samkoon", "Solenoid Valve", "Flight Fuel System", "E-Stop", "Full-Scale Panel"],
+                difficulty: "ระดับสูงพิเศษ",
+                duration: "6-8 สัปดาห์",
+                imageUrl: "458eca00-e932-47b2-91ca-105db1d176f5.jpg"
+            },
+            {
+                id: "proj_15",
+                title: "งานติดตั้งตู้ไฟฟ้า Shelter ห้องเซิร์ฟเวอร์ภาคสนาม (Field Server Shelter Installation)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "ติดตั้งตู้ MDB, ตู้ Pilot Lamp, เครื่องปรับอากาศ และระบบ CCTV ในตู้ Shelter สนาม",
+                longDesc: "งานติดตั้งระบบไฟฟ้าครบวงจรภายในตู้ Shelter สำหรับห้องเซิร์ฟเวอร์ภาคสนาม ประกอบด้วยตู้ MDB (Main Distribution Board) พร้อม MCB/MCCB ป้องกัน, ตู้ย่อยแสดงสถานะด้วย Pilot Lamp 4 สี (เขียว/แดง/เขียว/น้ำเงิน), เครื่องปรับอากาศ Inverter ติดตั้งบนผนัง, ระบบกล้อง CCTV ภายใน และเดินท่อ PVC ร้อยสายไฟตามมาตรฐาน พร้อมเชื่อมต่อ LAN สำหรับเซิร์ฟเวอร์",
+                tags: ["MDB Panel", "Pilot Lamp", "Inverter AC", "CCTV", "Shelter Installation"],
+                difficulty: "ระดับสูง",
+                duration: "3-5 สัปดาห์",
+                imageUrl: "afa109aa-b462-4015-86cc-80a577645c63.jpg",
+                videoUrl: "d53839ee-954c-40bc-b37c-37fd5ca599e7.mp4"
+            },
+            {
+                id: "proj_16",
+                title: "ตู้คีบตุ๊กตา RG GAME Ayutthaya พร้อมระบบหยอดเหรียญ (Claw Machine Arcade System)",
+                category: "automation",
+                status: "เสร็จสิ้น",
+                shortDesc: "เครื่องคีบตุ๊กตาแบรนด์ RG GAME พร้อมจอ LCD แสดงผล, Joystick, ช่องหยอดเหรียญ และระบบจ่ายรางวัล",
+                longDesc: "โปรเจกต์ประกอบและปรับแต่งเครื่องคีบตุ๊กตา (Claw Machine) แบรนด์ RG GAME สาขาอยุธยา ระบบภายในควบคุมด้วยบอร์ดเฉพาะทาง แสดงผลข้อมูล PLAY/TIME, Gift Price, Sum Total ผ่านจอ LCD สีน้ำเงิน ติดตั้ง Joystick คริสตัลและปุ่มกดหยุดก้ามจับ พร้อมช่องหยอดเหรียญ, ช่อง Prize Out และไฟ LED ประดับ เหมาะสำหรับร้านเกมและห้างสรรพสินค้า",
+                tags: ["Claw Machine", "LCD Display", "Coin Acceptor", "Joystick", "LED Lighting"],
+                difficulty: "ระดับปานกลาง",
+                duration: "1-2 สัปดาห์",
+                imageUrl: "da105117-3739-4f4d-96f4-be3b69e1a714.jpg"
+            },
+            {
+                id: "proj_17",
+                title: "ตู้ไม้หยอดเหรียญ Arduino พร้อมจอ LCD และปุ่มกด (Wooden Coin-Operated Machine)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "ตู้ไม้ทำมือพร้อมช่องหยอดเหรียญ, ปุ่มกดเขียว/ชมพู, ปลั๊กไฟ 2 ช่อง และจอ LCD แสดงเครดิต",
+                longDesc: "ตู้หยอดเหรียญ DIY ทำจากไม้อัดออกแบบเอง ภายนอกติดตั้งช่องหยอดเหรียญโลหะมาตรฐาน (Coin Acceptor), จอ LCD ขนาดเล็กแสดงจำนวนเครดิต, ปุ่มกด Push Button สีเขียวและสีชมพู สำหรับเลือกโปรแกรม, ปลั๊กไฟ AC 2 ช่องสำหรับเสียบอุปกรณ์ไฟฟ้า ภายในใช้ Arduino ประมวลผลนับเหรียญและสั่ง Relay เปิด-ปิดอุปกรณ์ตามเวลา",
+                tags: ["Arduino", "Coin Acceptor", "Push Button", "LCD Display", "AC Relay"],
+                difficulty: "ระดับปานกลาง",
+                duration: "1-2 สัปดาห์",
+                imageUrl: "459451147_495756436547411_6865268880204024171_n.jpg",
+                videoUrl: "COIN.mp4"
+            },
+            {
+                id: "proj_18",
+                title: "กล่อง PIR Motion Sensor ตรวจจับความเคลื่อนไหว (PIR Motion Detection Box)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "กล่องอลูมิเนียมสีดำติดตั้ง PIR Sensor ตรวจจับความเคลื่อนไหว พร้อมวงจรภายในสำเร็จรูป",
+                longDesc: "กล่องตรวจจับความเคลื่อนไหวขนาดกะทัดรัด ผลิตจากกล่องอลูมิเนียมสีดำเกรดอุตสาหกรรม ติดตั้ง PIR (Passive Infrared) Motion Sensor ที่ฝาหน้า ภายในบรรจุวงจร Arduino/ESP สำหรับประมวลผลสัญญาณเคลื่อนไหว สามารถต่อพ่วงกับระบบ Alarm, ไฟเปิด-ปิดอัตโนมัติ หรือส่งแจ้งเตือนผ่าน WiFi ได้ ออกแบบให้ติดตั้งง่ายทั้งภายในและภายนอกอาคาร",
+                tags: ["PIR Sensor", "Arduino", "Aluminum Enclosure", "Motion Detection", "Smart Alert"],
+                difficulty: "ระดับเริ่มต้น",
+                duration: "3-5 วัน",
+                imageUrl: "57045_0.jpg"
+            },
+            {
+                id: "proj_19",
+                title: "โมเดล Plamo Village ฟิกเกอร์ขยับได้ + Servo Motor (Animated Figure with Servo)",
+                category: "iot",
+                status: "เสร็จสิ้น",
+                shortDesc: "ฟิกเกอร์คาแรคเตอร์จาก Plamo Village พร้อมฐาน Servo Motor ขยับหมุนได้ พร้อมจัดส่ง EMS",
+                longDesc: "โปรเจกต์ผสมผสานงาน Maker กับโมเดลฟิกเกอร์ นำคาแรคเตอร์จาก Plamo Village มาติดตั้งบนฐาน 3D Print สีดำ ภายในฐานซ่อน Micro Servo Motor SG90 ควบคุมด้วย Arduino สำหรับขยับหมุนตัวละครซ้าย-ขวาอัตโนมัติ มีแผ่นอะคริลิคใสเป็นฉากหลัง ส่งมอบงานพร้อมแพ็คจัดส่งด้วยบริการ EMS ทั่วประเทศ",
+                tags: ["Servo SG90", "Arduino", "3D Print Base", "Plamo Village", "EMS Shipping"],
+                difficulty: "ระดับเริ่มต้น",
+                duration: "3-5 วัน",
+                imageUrl: "1png.png",
+                videoUrl: "ดีไซน์ที่ยังไม่ได้ตั้งชื่อ.mp4"
+            }
+        ];
+
+        let projects = [...initialProjects];
+        let currentCategory = 'all';
+
+        // --- 2. LOAD & RENDER PROJECTS ---
+        window.onload = function () {
+            renderProjects();
+            renderVideos();
+            lucide.createIcons();
+        }
+
+        function renderProjects() {
+            const grid = document.getElementById('project-grid');
+            const noProjects = document.getElementById('no-projects');
+            const searchVal = document.getElementById('project-search').value.toLowerCase();
+
+            grid.innerHTML = '';
+
+            // Filter & Search Logic
+            const filtered = projects.filter(p => {
+                const matchesCategory = (currentCategory === 'all' || p.category === currentCategory);
+                const matchesSearch = p.title.toLowerCase().includes(searchVal) ||
+                    p.shortDesc.toLowerCase().includes(searchVal) ||
+                    p.tags.some(t => t.toLowerCase().includes(searchVal));
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                noProjects.classList.remove('hidden');
+            } else {
+                noProjects.classList.add('hidden');
+            }
+
+            filtered.forEach(p => {
+                // Create Beautiful Gradient Color for Project Image Backup Card based on Royal Blue logo style
+                let gradColor = "from-slate-900 via-slate-950 to-blue-950";
+                let iconMarkup = "cpu";
+                if (p.category === 'iot') {
+                    gradColor = "from-slate-900 via-blue-950 to-indigo-950";
+                    iconMarkup = "radio";
+                } else if (p.category === 'software') {
+                    gradColor = "from-slate-900 via-slate-950 to-indigo-950";
+                    iconMarkup = "terminal";
+                } else if (p.category === 'automation') {
+                    gradColor = "from-slate-900 via-blue-950 to-slate-950";
+                    iconMarkup = "factory";
+                }
+
+                const tagsMarkup = p.tags.map(t => `<span class="px-2 py-0.5 bg-slate-950/90 text-[10px] text-slate-400 rounded-md border border-slate-800 font-medium">${t}</span>`).join('');
+
+                const statusClass = p.status === 'เสร็จสิ้น' ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/15 text-amber-400 border-amber-500/20';
+
+                const cardHtml = `
+          <div class="bg-brand-card rounded-2xl border border-slate-800/80 hover:border-brand-primary/40 overflow-hidden shadow-lg transition-all hover:-translate-y-1 flex flex-col justify-between">
+            <!-- Project Real Image -->
+            <div class="h-48 bg-gradient-to-br ${gradColor} relative overflow-hidden border-b border-slate-800">
+              <img src="${IMAGE_BASE_PATH}${p.imageUrl}" 
+                   class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" 
+                   alt="${p.title}"
+                   onerror="this.style.display='none'">
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-card via-brand-card/20 to-transparent opacity-70 pointer-events-none"></div>
+              <span class="absolute top-3 right-3 px-2 py-0.5 text-[9px] font-bold border rounded-full ${statusClass} backdrop-blur-sm">${p.status}</span>
+              <span class="absolute bottom-3 left-3 px-2.5 py-1 text-[9px] font-bold bg-slate-900/80 text-brand-secondary border border-slate-700/50 rounded-full backdrop-blur-sm flex items-center gap-1"><i data-lucide="${iconMarkup}" class="w-3 h-3"></i> ${p.category.toUpperCase()}</span>
+            </div>
+
+            <!-- Content -->
+            <div class="p-5 flex-grow space-y-3">
+              <h3 class="text-sm font-bold text-slate-100 line-clamp-1 hover:text-brand-primary transition-colors cursor-pointer" onclick="openProjectDetail('${p.id}')">
+                ${p.title}
+              </h3>
+              <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                ${p.shortDesc}
+              </p>
+              <!-- Tags list -->
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                ${tagsMarkup}
+              </div>
+            </div>
+
+            <!-- Bottom Action Button -->
+            <div class="p-5 pt-0">
+              <button onclick="openProjectDetail('${p.id}')" class="w-full py-2 bg-slate-800/80 hover:bg-slate-800 text-xs text-slate-200 font-semibold rounded-xl border border-slate-750 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i> รายละเอียดการต่อวงจร & โค้ด
+              </button>
+            </div>
+          </div>
+        `;
+                grid.innerHTML += cardHtml;
+            });
+
+            lucide.createIcons();
+        }
+
+        // --- 3. FILTER & SEARCH HANDLERS ---
+        function filterProjects(cat) {
+            currentCategory = cat;
+            const buttons = document.querySelectorAll('#filter-container .filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-category') === cat) {
+                    btn.className = "filter-btn px-4 py-2 text-xs font-semibold bg-brand-primary text-white rounded-xl transition-all";
+                } else {
+                    btn.className = "filter-btn px-4 py-2 text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl transition-all";
+                }
+            });
+
+            renderProjects();
+        }
+
+        function searchProjects() {
+            renderProjects();
+        }
+
+        // --- 4. PROJECT DETAIL MODAL SYSTEM ---
+        function openProjectDetail(id) {
+            const proj = projects.find(p => p.id === id);
+            if (!proj) return;
+
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+
+            let iconName = "cpu";
+            if (proj.category === 'iot') iconName = "radio";
+            if (proj.category === 'software') iconName = "terminal";
+            if (proj.category === 'automation') iconName = "factory";
+
+            content.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="p-3 bg-brand-primary/10 text-brand-secondary rounded-2xl border border-brand-primary/20">
+            <i data-lucide="${iconName}" class="w-8 h-8"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-brand-primary font-bold tracking-widest uppercase">${proj.category} project</span>
+            <h3 class="text-lg sm:text-xl font-bold mt-1 text-slate-100">${proj.title}</h3>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-slate-900/60 p-3 rounded-2xl border border-slate-800 text-xs">
+          <div>
+            <span class="text-slate-500 text-[10px] block">สถานะโครงการ</span>
+            <span class="font-bold text-slate-200 mt-0.5 block">${proj.status}</span>
+          </div>
+          <div>
+            <span class="text-slate-500 text-[10px] block">ระยะเวลาดำเนินงาน</span>
+            <span class="font-bold text-slate-200 mt-0.5 block">${proj.duration || 'ไม่มีข้อมูล'}</span>
+          </div>
+          <div class="col-span-2 sm:col-span-1">
+            <span class="text-slate-500 text-[10px] block">ความยากทางเทคนิค</span>
+            <span class="font-bold text-slate-200 mt-0.5 block">${proj.difficulty || 'ปกติ'}</span>
+          </div>
+        </div>
+
+        ${proj.videoUrl ? `
+        <div class="space-y-2">
+          <h4 class="text-xs font-extrabold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="video" class="w-3.5 h-3.5 text-brand-primary"></i> วิดีโอสาธิตการทำงานจริง
+          </h4>
+          <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 aspect-video glow-royal">
+            <video src="${VIDEO_BASE_PATH}${proj.videoUrl}" controls class="w-full h-full object-contain" preload="metadata"></video>
+          </div>
+        </div>
+        ` : ''}
+
+        <div class="space-y-2">
+          <h4 class="text-xs font-extrabold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="info" class="w-3.5 h-3.5 text-brand-primary"></i> รายละเอียดการออกแบบระบบ
+          </h4>
+          <p class="text-xs text-slate-400 leading-relaxed">${proj.longDesc}</p>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <h4 class="text-xs font-extrabold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-brand-primary"></i> รายชื่อเซนเซอร์ อุปกรณ์และเครื่องมือหลัก
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            ${proj.tags.map(t => `<span class="px-3 py-1 bg-slate-850 text-[11px] text-slate-300 rounded-xl border border-slate-750">${t}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="askAIBoutProject('${proj.title}')" class="w-full sm:w-auto px-5 py-2.5 bg-brand-primary text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2">
+            <i data-lucide="bot" class="w-4 h-4"></i> ปรึกษาแนวคิดโค้ดผ่าน AI
+          </button>
+          <a href="#contact" onclick="closeModal()" class="w-full sm:w-auto text-center px-5 py-2.5 bg-slate-900 text-slate-200 text-xs font-semibold rounded-xl border border-slate-750 flex items-center justify-center gap-2">
+            <i data-lucide="message-square-text" class="w-4 h-4"></i> สั่งผลิตงานประเภทนี้
+          </a>
+        </div>
+      `;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // --- 5. MOBILE MENU HANDLER ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+
+        // --- 6. MOCK ADMIN PANEL (SIMULATING ADD NEW PROJECT) ---
+        function toggleAdminModal() {
+            const adminModal = document.getElementById('admin-modal');
+            if (adminModal.classList.contains('hidden')) {
+                adminModal.classList.remove('hidden');
+                setTimeout(() => adminModal.classList.remove('opacity-0'), 10);
+            } else {
+                adminModal.classList.add('opacity-0');
+                setTimeout(() => adminModal.classList.add('hidden'), 300);
+            }
+        }
+
+        function handleMockAddProject(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('adm-title').value;
+            const category = document.getElementById('adm-category').value;
+            const status = document.getElementById('adm-status').value;
+            const shortDesc = document.getElementById('adm-desc').value;
+            const longDesc = document.getElementById('adm-longdesc').value || shortDesc;
+            const tagsStr = document.getElementById('adm-tags').value;
+            const videoUrl = document.getElementById('adm-video').value;
+
+            const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()) : ["Arduino Lab"];
+
+            const newProj = {
+                id: 'mock_' + Date.now(),
+                title,
+                category,
+                status,
+                shortDesc,
+                longDesc,
+                tags,
+                difficulty: "ระดับกำหนดเอง",
+                duration: "1-2 สัปดาห์",
+                imageUrl: "custom-mock",
+                videoUrl: videoUrl ? videoUrl : undefined
+            };
+
+            // Insert at the beginning of the array
+            projects.unshift(newProj);
+            renderProjects();
+
+            // Clear inputs & close
+            document.getElementById('admin-form').reset();
+            toggleAdminModal();
+        }
+
+        // --- 7. BOOKMARK ALERT MODAL ---
+        function bookmarkNotification() {
+            toggleBookmarkModal();
+        }
+
+        function toggleBookmarkModal() {
+            const bModal = document.getElementById('bookmark-modal');
+            if (bModal.classList.contains('hidden')) {
+                bModal.classList.remove('hidden');
+                setTimeout(() => bModal.classList.remove('opacity-0'), 10);
+            } else {
+                bModal.classList.add('opacity-0');
+                setTimeout(() => bModal.classList.add('hidden'), 300);
+            }
+        }
+
+        // --- 8. CONTACT FORM SUBMIT (MOCKED OUT) ---
+        function handleContactSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('contact-name').value;
+            const tel = document.getElementById('contact-tel').value;
+            const type = document.getElementById('contact-type').value;
+            const desc = document.getElementById('contact-desc').value;
+
+            // Hide form contents, show success banner
+            document.getElementById('contact-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+
+            // Build mailto link parameters
+            const subject = encodeURIComponent(`[BaanProject] ขอคำปรึกษาทำระบบจากคุณ ${name}`);
+            const body = encodeURIComponent(
+                `เรียน ทีมงาน BaanProject,\n\n` +
+                `มีลูกค้าติดต่อสอบถามผ่านทางแบบฟอร์มหน้าเว็บ โดยมีรายละเอียดดังนี้:\n\n` +
+                `• ชื่อผู้ติดต่อ: ${name}\n` +
+                `• เบอร์โทรศัพท์ / LINE ID: ${tel}\n` +
+                `• หมวดหมู่ขอบเขตงาน: ${type}\n` +
+                `• รายละเอียดขอบเขตงานที่ต้องการปรึกษา:\n${desc}\n\n` +
+                `ขอแสดงความนับถือ`
+            );
+
+            // Redirect to mail app after a short delay so user sees success state
+            setTimeout(() => {
+                window.location.href = `mailto:ohmwartherapperkampangpet@gmail.com?subject=${subject}&body=${body}`;
+            }, 1000);
+        }
+
+        // --- 9. GEMINI 2.5 API CHAT ASSISTANT ---
+        const apiKey = ""; // Runtime automatically provisions key
+
+        function toggleChatWindow() {
+            const win = document.getElementById('chat-window');
+            const isHidden = win.classList.contains('hidden');
+            if (isHidden) {
+                win.classList.remove('hidden');
+                setTimeout(() => {
+                    win.classList.remove('translate-y-4', 'opacity-0');
+                }, 10);
+            } else {
+                win.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    win.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Triggered when user clicks "Ask AI about this project" inside modal
+        function askAIBoutProject(projectTitle) {
+            closeModal();
+            toggleChatWindow();
+            const promptText = `ขอคำแนะนำและข้อมูลเพิ่มเติมเกี่ยวกับโครงการ "${projectTitle}" ทีครับ ว่าเราจะต่อยอดวงจรด้วยบอร์ด Arduino/ESP32 เพิ่มเติมอย่างไรได้บ้าง`;
+            sendMockMessage(promptText);
+        }
+
+        function sendQuickPrompt(promptText) {
+            sendMockMessage(promptText);
+        }
+
+        // Logic to insert user message and trigger Gemini API call
+        async function sendMockMessage(userText) {
+            if (!userText.trim()) return;
+
+            appendChatMessage(userText, 'user');
+
+            // Auto Scroll
+            const logs = document.getElementById('chat-logs');
+            logs.scrollTop = logs.scrollHeight;
+
+            // Loading State Indicator
+            const loadingId = 'loading-' + Date.now();
+            const loadingHtml = `
+        <div id="${loadingId}" class="flex items-start gap-2 max-w-[85%]">
+          <div class="w-6 h-6 rounded bg-slate-800 text-brand-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i data-lucide="bot" class="w-3.5 h-3.5"></i>
+          </div>
+          <div class="p-3 bg-slate-900/80 rounded-2xl rounded-tl-none border border-slate-850 text-slate-500 italic">
+            กำลังพิมพ์คำตอบ...
+          </div>
+        </div>
+      `;
+            logs.innerHTML += loadingHtml;
+            logs.scrollTop = logs.scrollHeight;
+            lucide.createIcons();
+
+            // System Prompt providing Context of BaanProject Portfolio, Arduino Lab, and exact branding
+            const systemPrompt = `คุณคือ BaanProject AI Assistant ผู้ช่วยอัจฉริยะวิเคราะห์วิศวกรรมไฟฟ้าและสมองกล IoT ประจำเว็บ "บ้านโปรเจค" (PROJECT & ARDUINO LAB) คอยให้คำแนะนำเกี่ยวกับบอร์ด ESP32, Arduino, Raspberry Pi, ตู้คอนโทรลโรงงาน PLC และวงจรไฟฟ้าเซนเซอร์ต่างๆ แก่ลูกค้าและผู้มาชมพอร์ต โปรดทำตามข้อบังคับเหล่านี้:
+      1. ตอบคำถามอย่างเป็นกันเอง มีความเป็นผู้เชี่ยวชาญ สุภาพ คลีน กระชับ ไม่เวิ่นเว้อ
+      2. ใช้ภาษาไทยและคำศัพท์ทางวิศวกรรมที่เข้าใจง่าย
+      3. หลีกเลี่ยงคำพูดของบอทเทมเพลตทั่วไป แสดงตัวตนเหมือนเป็นวิศวกรผู้ดูแลระบบแล็บโดยตรง
+      4. มีการแนะนำอุปกรณ์ ไอซี อุปกรณ์เซนเซอร์ วงจรที่สอดคล้องกับหัวข้อ และเชิญชวนติดต่อเราทางช่องแชทหรือ Line ด้านล่างเมื่อต้องการคำปรึกษาเพิ่มเติม`;
+
+            let responseText = "";
+
+            try {
+                // Calling Gemini 2.5 API with Exponential Backoff
+                responseText = await callGeminiAPI(userText, systemPrompt);
+            } catch (err) {
+                responseText = "ขออภัยด้วยครับ ระบบประมวลผลข้อมูล AI ประจำแล็บเกิดความล่าช้าชั่วคราว แต่ท่านยังคงสอบถามวิศวกรผ่านทางไลน์ไอดี @baanproject หรือส่งคำถามทางแบบฟอร์มติดต่อด้านล่างได้ทันทีเลยครับ!";
+            }
+
+            // Remove loading indicator and append AI reply
+            const loadingEl = document.getElementById(loadingId);
+            if (loadingEl) loadingEl.remove();
+
+            appendChatMessage(responseText, 'ai');
+            logs.scrollTop = logs.scrollHeight;
+            lucide.createIcons();
+        }
+
+        function appendChatMessage(text, sender) {
+            const logs = document.getElementById('chat-logs');
+            if (sender === 'user') {
+                const html = `
+          <div class="flex items-start justify-end gap-2 max-w-[85%] ml-auto">
+            <div class="p-3 bg-brand-primary text-white rounded-2xl rounded-tr-none font-medium leading-relaxed">
+              ${text}
+            </div>
+          </div>
+        `;
+                logs.innerHTML += html;
+            } else {
+                // Convert plain linebreaks to <br> for AI reply
+                const formattedText = text.replace(/\n/g, '<br>');
+                const html = `
+          <div class="flex items-start gap-2 max-w-[85%]">
+            <div class="w-6 h-6 rounded bg-slate-800 text-brand-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i data-lucide="bot" class="w-3.5 h-3.5"></i>
+            </div>
+            <div class="p-3 bg-slate-900/80 rounded-2xl rounded-tl-none border border-slate-850 text-slate-300 leading-relaxed">
+              ${formattedText}
+            </div>
+          </div>
+        `;
+                logs.innerHTML += html;
+            }
+        }
+
+        async function handleSendChat(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const text = input.value;
+            input.value = '';
+            await sendMockMessage(text);
+        }
+
+        // Call Gemini API utilizing Exponential Backoff (retrying up to 5 times)
+        async function callGeminiAPI(query, systemPrompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: query }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            let retries = 5;
+            let delay = 1000;
+
+            while (retries > 0) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP Error Status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const textResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (textResponse) {
+                        return textResponse;
+                    } else {
+                        throw new Error("ไม่มีข้อมูลการตอบกลับจากโมเดล");
+                    }
+                } catch (error) {
+                    retries--;
+                    if (retries === 0) {
+                        throw error;
+                    }
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2; // Exponential Backoff
+                }
+            }
+            throw new Error("การดำเนินการล้มเหลวหลังจากลองใหม่ครบ 5 ครั้ง");
+        }
+
+        // --- 10. DEDICATED VIDEOS GALLERY SECTION ---
+        const initialVideos = [
+            {
+                id: "vid_2",
+                title: "เครื่องวัดระดับน้ำในบ่อพร้อมระบบแจ้งเตือนออนไลน์ (Water Level Online Alert System)",
+                fileName: "ghcgfx.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการทำงานเครื่องวัดระดับน้ำในบ่อแบบออนไลน์ ตรวจวัดค่าความลึกแบบเรียลไทม์ และแจ้งเตือนภัยผ่านมือถือเมื่อน้ำล้นหรือแห้งต่ำกว่าเกณฑ์"
+            },
+            {
+                id: "vid_3",
+                title: "หุ่นจำลองการเต้นของจังหวะชีพจร (Pulse Rate Animated Figure)",
+                fileName: "1.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการทำงานหุ่นจำลองแสดงการเต้นของจังหวะชีพจร โดยจำลองการขยับตามสัญญาณชีพจรและการเต้นของหัวใจจริงแบบเรียลไทม์ ร่วมกับเซนเซอร์วัดค่าชีพจร"
+            },
+            {
+                id: "vid_4",
+                title: "เครื่องชั่งน้ำหนัก DIY (DIY Weight Scale)",
+                fileName: "succesfuly.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการทำงานเครื่องชั่งน้ำหนักดิจิตอลแบบทำมือ (DIY) โดยใช้เซนเซอร์วัดแรงกด (Load Cell) และโมดูลขยายสัญญาณ HX711 เชื่อมต่อกับบอร์ด Arduino แสดงผลค่าน้ำหนักอย่างแม่นยำ"
+            },
+
+            {
+                id: "vid_7",
+                title: "ถังขยะเปิด-ปิดอัตโนมัติ (Automatic Trash Can System)",
+                fileName: "2.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการทำงานของถังขยะเปิด-ปิดอัตโนมัติ ควบคุมด้วยระบบเซนเซอร์วัดระยะสั่งงานเซอร์โวมอเตอร์เพื่อเปิดและปิดฝาถังโดยอัตโนมัติเมื่อตรวจพบสิ่งกีดขวางระยะใกล้"
+            },
+
+            {
+                id: "vid_10",
+                title: "กลไกประตูอัตโนมัติ โดยใส่รหัสผ่าน (Automatic Password Door Lock)",
+                fileName: "d53839ee-954c-40bc-b37c-37fd5ca599e7.mp4",
+                category: "automation",
+                desc: "คลิปสาธิตการทำงานระบบกลไกประตูอัตโนมัติ ปลดล็อกด้วยการกดรหัสผ่านผ่านปุ่มกด (Keypad) เพื่อความปลอดภัยและการควบคุมการเข้า-ออกสถานที่"
+            },
+            {
+                id: "vid_11",
+                title: "DIY ตู้คีบให้สั่งใช้งานผ่านออนไลน์ได้ (DIY Online Claw Machine)",
+                fileName: "e5f37598-8dbe-42d3-a2e6-d132badad110.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการสร้างตู้คีบตุ๊กตาแบบทำมือ (DIY) ที่สามารถเชื่อมต่ออินเทอร์เน็ตเพื่อควบคุมและสั่งงานการคีบผ่านช่องทางออนไลน์ได้แบบเรียลไทม์"
+            },
+            {
+                id: "vid_12",
+                title: "เครื่องคัดแยกชิ้นงานด้วย AI camera (AI Camera Workpiece Sorting Machine)",
+                fileName: "10448c81-aa18-4ad0-8c1b-d8f458438b2f.mp4",
+                category: "automation",
+                desc: "คลิปสาธิตการทำงานเครื่องคัดแยกชิ้นงานอัตโนมัติ โดยใช้กล้อง AI ตรวจวิเคราะห์คุณลักษณะหรือความพกพร่องของชิ้นงาน เพื่อคัดแยกประเภทลงถังบรรจุที่ถูกต้อง"
+            },
+            {
+                id: "vid_13",
+                title: "โซล่าเซลล์หันตามแสงอาทิตย์ (Dual-Axis Solar Tracker)",
+                fileName: "aae6132f-5104-4d3f-97e0-474fc0a04169.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการทำงานระบบแผงโซล่าเซลล์หันตามแสงอาทิตย์อัตโนมัติ โดยใช้เซนเซอร์วัดแสงสั่งงานเซอร์โวมอเตอร์เพื่อควบคุมทิศทางแผงรับแสงให้รับความเข้มแสงอาทิตย์ได้สูงสุดตลอดวัน"
+            },
+            {
+                id: "vid_14",
+                title: "จอไฟแสดงชื่อ (LED Matrix Name Display)",
+                fileName: "Thank You_2.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการควบคุมจอแสดงผล LED Matrix เพื่อโปรแกรมให้แสดงชื่อหรือข้อความวิ่งตามที่เราต้องการอย่างคมชัดและสวยงาม"
+            },
+            {
+                id: "vid_15",
+                title: "ตู้ชาร์จแบบหยอดเหรียญ (Coin-Operated Charging Station)",
+                fileName: "SUSSCESS.0.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตการทำงานตู้ชาร์จหยอดเหรียญ โดยตรวจจับสัญญาณจากเครื่องรับเหรียญและจ่ายกระแสไฟเพื่อชาร์จอุปกรณ์ตามเวลาที่ตั้งค่าไว้"
+            },
+            {
+                id: "vid_16",
+                title: "เครื่องเล่นเพลงโรงเรียนแบบ offline (Offline School Music Player)",
+                fileName: "2c1f259d-aa82-403e-8794-4134eb3f91c4.mp4",
+                category: "iot",
+                desc: "คลิปสาธิตระบบเครื่องเล่นเพลงสำหรับโรงเรียนแบบออฟไลน์ สามารถตั้งเวลาเปิดเพลง เคารพธงชาติ หรือเสียงกริ่งสัญญาณตามคาบเรียนได้อัตโนมัติโดยไม่ต้องใช้การเชื่อมต่ออินเทอร์เน็ต"
+            }
+        ];
+
+        let activeVideoCategory = 'all';
+
+        function renderVideos() {
+            const grid = document.getElementById('video-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const filtered = initialVideos.filter(v => {
+                return activeVideoCategory === 'all' || v.category === activeVideoCategory;
+            });
+
+            filtered.forEach(v => {
+                let cardHtml = `
+                    <div class="bg-brand-card rounded-2xl border border-slate-800/80 hover:border-brand-primary/40 overflow-hidden shadow-lg transition-all hover:-translate-y-1 flex flex-col justify-between">
+                        <div class="relative aspect-video bg-slate-950 border-b border-slate-800 overflow-hidden">
+                            <video src="${VIDEO_BASE_PATH}${v.fileName}" controls class="w-full h-full object-contain" preload="metadata"></video>
+                        </div>
+                        <div class="p-5 flex-grow space-y-2">
+                            <span class="px-2 py-0.5 text-[9px] font-bold bg-slate-900/85 text-brand-secondary border border-slate-800 rounded-full">${v.category === 'iot' ? 'ARDUINO & IOT' : 'PLC AUTOMATION'}</span>
+                            <h3 class="text-xs font-bold text-slate-100 mt-1">${v.title}</h3>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">${v.desc}</p>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        function filterVideos(cat) {
+            activeVideoCategory = cat;
+            const buttons = document.querySelectorAll('.video-filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-video-category') === cat) {
+                    btn.className = "video-filter-btn px-4 py-2 text-xs font-semibold bg-brand-primary text-white rounded-xl transition-all";
+                } else {
+                    btn.className = "video-filter-btn px-4 py-2 text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 rounded-xl transition-all";
+                }
+            });
+
+            renderVideos();
+        }
+
+        // --- 11. INTERACTIVE LAB SIMULATOR (EASTER EGG) ---
+        let logoClicks = 0;
+        let logoClickTimeout = null;
+        let isSimOn = false;
+        let simInterval = null;
+        let simCanvas = null;
+        let simCtx = null;
+        let simWaveOffset = 0;
+        let simWaterLevel = 0;
+        let simRelay1 = false;
+        let simRelay2 = false;
+        let lastLoggedWaterLevel = -1;
+
+        function handleLogoClick() {
+            logoClicks++;
+            clearTimeout(logoClickTimeout);
+
+            if (logoClicks >= 5) {
+                logoClicks = 0;
+                openSimulatorModal();
+            } else {
+                const remaining = 5 - logoClicks;
+                showToast(`กดโลโก้อีก ${remaining} ครั้งเพื่อปลดล็อกห้องจำลองวิศวกรรม! 🛠️`);
+
+                logoClickTimeout = setTimeout(() => {
+                    logoClicks = 0;
+                }, 2000);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            if (window.toastTimeout) clearTimeout(window.toastTimeout);
+            window.toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function openSimulatorModal() {
+            const modal = document.getElementById('simulator-modal');
+            if (!modal) return;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+
+            simCanvas = document.getElementById('sim-canvas');
+            if (simCanvas) {
+                simCtx = simCanvas.getContext('2d');
+            }
+
+            const logsContainer = document.getElementById('sim-logs');
+            if (logsContainer) {
+                logsContainer.innerHTML = '';
+            }
+
+            drawStaticGrid();
+
+            addSimLog('<span class="text-brand-secondary font-bold">[SYSTEM] ยินดีต้อนรับสู่ BaanProject Interactive Lab Simulator</span>');
+            addSimLog('<span class="text-slate-400">กดปุ่ม POWER ON เพื่อเริ่มจำลองการทำงาน</span>');
+
+            lucide.createIcons();
+        }
+
+        function closeSimulatorModal() {
+            const modal = document.getElementById('simulator-modal');
+            if (!modal) return;
+
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+
+            if (isSimOn) {
+                toggleSimPower();
+            }
+        }
+
+        function toggleSimPower() {
+            isSimOn = !isSimOn;
+
+            const powerLed = document.getElementById('sim-power-led');
+            const powerText = document.getElementById('sim-power-text');
+            const powerBtn = document.getElementById('sim-power-btn');
+            const controlsPanel = document.getElementById('sim-panel-controls');
+
+            const relay1Switch = document.getElementById('sim-relay1-switch');
+            const relay2Switch = document.getElementById('sim-relay2-switch');
+            const waterRange = document.getElementById('sim-water-range');
+
+            if (isSimOn) {
+                powerLed.className = "w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse glow-emerald";
+                powerText.innerText = "ONLINE";
+                powerText.className = "text-brand-accent font-bold";
+                powerBtn.innerText = "POWER OFF";
+                powerBtn.className = "px-4 py-1.5 bg-red-600 hover:bg-red-500 text-white text-xs font-bold rounded-lg border border-red-500 transition-all";
+
+                controlsPanel.classList.remove('opacity-50');
+
+                relay1Switch.removeAttribute('disabled');
+                relay2Switch.removeAttribute('disabled');
+                waterRange.removeAttribute('disabled');
+
+                addSimLog('<span class="text-brand-accent font-bold">[SYSTEM] กำลังเริ่มต้นระบบไมโครคอนโทรลเลอร์...</span>');
+                addSimLog('[SYSTEM] เชื่อมต่อบอร์ด ESP32 และ PLC Board สำเร็จ');
+                addSimLog('[SYSTEM] สัญญาณจำลองและเซนเซอร์ออนไลน์ พร้อมใช้งาน');
+
+                if (simInterval) clearInterval(simInterval);
+                simInterval = setInterval(updateSimulator, 50);
+
+            } else {
+                powerLed.className = "w-2.5 h-2.5 rounded-full bg-slate-700 animate-pulse";
+                powerText.innerText = "OFFLINE";
+                powerText.className = "text-slate-500 font-bold";
+                powerBtn.innerText = "POWER ON";
+                powerBtn.className = "px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-lg border border-slate-700 transition-all";
+
+                controlsPanel.classList.add('opacity-50');
+
+                relay1Switch.setAttribute('disabled', 'true');
+                relay1Switch.checked = false;
+                toggleSimRelay(1, false);
+
+                relay2Switch.setAttribute('disabled', 'true');
+                relay2Switch.checked = false;
+                toggleSimRelay(2, false);
+
+                waterRange.setAttribute('disabled', 'true');
+                waterRange.value = 0;
+                updateSimWaterLevel(0);
+
+                addSimLog('<span class="text-red-500 font-bold">[SYSTEM] ปิดระบบจำลองการทำงาน</span>');
+
+                if (simInterval) {
+                    clearInterval(simInterval);
+                    simInterval = null;
+                }
+
+                setTimeout(drawStaticGrid, 100);
+            }
+        }
+
+        function toggleSimRelay(channel, forceState) {
+            let state;
+            if (channel === 1) {
+                const sw = document.getElementById('sim-relay1-switch');
+                const led = document.getElementById('sim-relay1-led');
+                if (forceState !== undefined) {
+                    sw.checked = forceState;
+                }
+                state = sw.checked;
+                simRelay1 = state;
+                if (state) {
+                    led.className = "w-2.5 h-2.5 rounded-full bg-brand-accent glow-emerald";
+                    addSimLog('<span class="text-brand-secondary font-bold">[RELAY 1]</span> ปั๊มน้ำ: <span class="text-brand-accent">ON (ทำงาน)</span>');
+                } else {
+                    led.className = "w-2.5 h-2.5 rounded-full bg-slate-700";
+                    addSimLog('<span class="text-brand-secondary font-bold">[RELAY 1]</span> ปั๊มน้ำ: <span class="text-slate-500">OFF (หยุดทำงาน)</span>');
+                }
+            } else if (channel === 2) {
+                const sw = document.getElementById('sim-relay2-switch');
+                const led = document.getElementById('sim-relay2-led');
+                if (forceState !== undefined) {
+                    sw.checked = forceState;
+                }
+                state = sw.checked;
+                simRelay2 = state;
+                if (state) {
+                    led.className = "w-2.5 h-2.5 rounded-full bg-brand-accent glow-emerald";
+                    addSimLog('<span class="text-brand-secondary font-bold">[RELAY 2]</span> โซลินอยด์วาล์ว: <span class="text-brand-accent">ON (เปิดวาล์ว)</span>');
+                } else {
+                    led.className = "w-2.5 h-2.5 rounded-full bg-slate-700";
+                    addSimLog('<span class="text-brand-secondary font-bold">[RELAY 2]</span> โซลินอยด์วาล์ว: <span class="text-slate-500">OFF (ปิดวาล์ว)</span>');
+                }
+            }
+        }
+
+        function updateSimWaterLevel(val) {
+            simWaterLevel = parseInt(val, 10);
+
+            const waterVal = document.getElementById('sim-water-val');
+            const waterBar = document.getElementById('sim-water-bar');
+
+            if (waterVal) waterVal.innerText = `${val}%`;
+            if (waterBar) {
+                waterBar.style.width = `${val}%`;
+
+                if (simWaterLevel >= 90) {
+                    waterBar.className = "h-full bg-gradient-to-r from-red-600 to-orange-500 transition-all duration-300";
+                    if (lastLoggedWaterLevel < 90) {
+                        addSimLog('<span class="text-red-500 font-bold">[WARN] ระดับน้ำสูงเกินเกณฑ์ 90%! ระบบความปลอดภัย Interlock เริ่มทำงาน</span>');
+                    }
+                } else if (simWaterLevel >= 75) {
+                    waterBar.className = "h-full bg-gradient-to-r from-amber-500 to-yellow-400 transition-all duration-300";
+                    if (lastLoggedWaterLevel < 75 || lastLoggedWaterLevel >= 90) {
+                        addSimLog('<span class="text-amber-500 font-bold">[ALERT] ระดับน้ำสูงปานกลาง (>= 75%)</span>');
+                    }
+                } else {
+                    waterBar.className = "h-full bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-300";
+                    if (lastLoggedWaterLevel >= 75) {
+                        addSimLog('<span class="text-brand-accent font-bold">[SENSOR] ระดับน้ำกลับสู่สภาวะปกติ</span>');
+                    }
+                }
+            }
+
+            if (Math.abs(simWaterLevel - lastLoggedWaterLevel) >= 15 && lastLoggedWaterLevel !== -1) {
+                addSimLog(`<span class="text-slate-400">[SENSOR] ปรับระดับน้ำจำลองเป็น ${simWaterLevel}%</span>`);
+                lastLoggedWaterLevel = simWaterLevel;
+            } else if (lastLoggedWaterLevel === -1) {
+                lastLoggedWaterLevel = simWaterLevel;
+            }
+        }
+
+        function addSimLog(text) {
+            const logsContainer = document.getElementById('sim-logs');
+            if (!logsContainer) return;
+
+            const timeStr = new Date().toLocaleTimeString('th-TH', { hour12: false });
+            const logLine = document.createElement('div');
+            logLine.innerHTML = `<span class="text-slate-500">[${timeStr}]</span> ${text}`;
+
+            logsContainer.appendChild(logLine);
+
+            while (logsContainer.childNodes.length > 50) {
+                logsContainer.removeChild(logsContainer.firstChild);
+            }
+
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        function drawStaticGrid() {
+            if (!simCtx || !simCanvas) return;
+            const w = simCanvas.width;
+            const h = simCanvas.height;
+
+            simCtx.fillStyle = '#020617';
+            simCtx.fillRect(0, 0, w, h);
+
+            simCtx.strokeStyle = '#1e293b';
+            simCtx.lineWidth = 0.5;
+
+            for (let x = 20; x < w; x += 20) {
+                simCtx.beginPath();
+                simCtx.moveTo(x, 0);
+                simCtx.lineTo(x, h);
+                simCtx.stroke();
+            }
+
+            for (let y = 15; y < h; y += 15) {
+                simCtx.beginPath();
+                simCtx.moveTo(0, y);
+                simCtx.lineTo(w, y);
+                simCtx.stroke();
+            }
+
+            simCtx.strokeStyle = '#334155';
+            simCtx.lineWidth = 1;
+            simCtx.beginPath();
+            simCtx.moveTo(0, h / 2);
+            simCtx.lineTo(w, h / 2);
+            simCtx.stroke();
+        }
+
+        function updateSimulator() {
+            if (!isSimOn) return;
+
+            drawStaticGrid();
+
+            simCtx.strokeStyle = '#10b981';
+            simCtx.lineWidth = 1.5;
+            simCtx.beginPath();
+
+            const w = simCanvas.width;
+            const h = simCanvas.height;
+            const midY = h / 2;
+
+            let amplitude = 12 + (simWaterLevel * 0.12);
+            let frequency = 0.04 + (simWaterLevel * 0.001);
+            let noiseAmp = simRelay1 ? 3 : 0;
+
+            if (simRelay2) {
+                amplitude += 4;
+            }
+
+            simCtx.moveTo(0, midY);
+            for (let x = 0; x < w; x++) {
+                let y = midY + Math.sin(x * frequency + simWaveOffset) * amplitude;
+                if (noiseAmp > 0) {
+                    y += Math.sin(x * 0.4 + simWaveOffset * 3) * noiseAmp * (0.4 + 0.6 * Math.random());
+                }
+                simCtx.lineTo(x, y);
+            }
+            simCtx.stroke();
+
+            simWaveOffset += 0.15;
+        }
+    </script>
+
+</body>
+
+</html>
